@@ -2,6 +2,88 @@
 // ===== مدیریت زبان با منوی کشویی =====
 // =============================================================
 
+// --- افزودن ترجمه‌ی چند برچسب جدید به دیکشنری زبان (بدون تغییر language.js) ---
+(function () {
+  var extra = {
+    fa: {
+      features_kicker: "امکانات مانگرو",
+      features_title: "چرا مانگرو؟",
+      gallery_kicker: "نمایش برنامه",
+      video_kicker: "آموزش",
+      download_kicker: "نصب اپلیکیشن",
+      excel_kicker: "نسخه‌های اکسل",
+      contact_kicker: "ارتباط با ما",
+      nav_admin: "ورود مدیریت",
+      excel_sub: "مجموعه نرم‌افزارهای حسابداری، انبار و فروش مانگرو بر پایه اکسل",
+      hero_t1: "امن و مطمئن",
+      hero_t2: "پشتیبانی کامل",
+      hero_t3: "به‌روزرسانی رایگان"
+    },
+    en: {
+      features_kicker: "Mangro Features",
+      features_title: "Why Mangro?",
+      gallery_kicker: "App Preview",
+      video_kicker: "Learning",
+      download_kicker: "Get the App",
+      excel_kicker: "Excel Editions",
+      contact_kicker: "Get in Touch",
+      nav_admin: "Admin Login",
+      excel_sub: "Mangro accounting, warehouse & sales software built on Excel",
+      hero_t1: "Safe & Secure",
+      hero_t2: "Full Support",
+      hero_t3: "Free Updates"
+    },
+    ar: {
+      features_kicker: "مميزات مانجرو",
+      features_title: "لماذا مانجرو؟",
+      gallery_kicker: "معاينة التطبيق",
+      video_kicker: "التعليم",
+      download_kicker: "تثبيت التطبيق",
+      excel_kicker: "إصدارات إكسل",
+      contact_kicker: "تواصل معنا",
+      nav_admin: "دخول الإدارة",
+      excel_sub: "برمجيات المحاسبة والمخازن والمبيعات من مانجرو المبنية على إكسل",
+      hero_t1: "آمن وموثوق",
+      hero_t2: "دعم كامل",
+      hero_t3: "تحديثات مجانية"
+    }
+  };
+  try {
+    if (typeof langData !== "undefined") {
+      ["fa", "en", "ar"].forEach(function (l) {
+        if (langData[l]) {
+          for (var k in extra[l]) langData[l][k] = extra[l][k];
+        }
+      });
+    }
+  } catch (e) {}
+})();
+
+// --- وقتی زبان «فارسی» است، متن‌های ویرایش‌شده در پنل (data-cms) حفظ می‌شوند؛
+//     در انگلیسی/عربی ترجمه‌ی زبان اعمال می‌شود. ---
+(function () {
+  if (typeof window.updateTexts !== "function") return;
+  var orig = window.updateTexts;
+  window.updateTexts = function (lang) {
+    var cache = [];
+    if (lang === "fa") {
+      document.querySelectorAll("[data-cms]").forEach(function (el) {
+        cache.push({ el: el, html: el.innerHTML });
+      });
+      document.querySelectorAll("[data-cms-ph]").forEach(function (el) {
+        cache.push({ el: el, ph: el.getAttribute("placeholder") });
+      });
+    }
+    orig(lang);
+    if (lang === "fa") {
+      cache.forEach(function (c) {
+        if (c.html !== undefined) c.el.innerHTML = c.html;
+        if (c.ph !== undefined) c.el.setAttribute("placeholder", c.ph);
+      });
+    }
+  };
+})();
+
 document.addEventListener('DOMContentLoaded', function() {
     
     // ---- باز و بسته کردن منوی کشویی ----
