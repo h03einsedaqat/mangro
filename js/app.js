@@ -23,13 +23,18 @@ function initGallery() {
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev"
     },
+    centeredSlides: true,
+    grabCursor: true,
+    watchSlidesProgress: true,
+    keyboard: { enabled: true },
     breakpoints: {
-      320: { slidesPerView: 1, spaceBetween: 24 },
-      640: { slidesPerView: 2, spaceBetween: 24 },
-      900: { slidesPerView: 3, spaceBetween: 30 }
+      320: { slidesPerView: 1.15, spaceBetween: 14 },
+      480: { slidesPerView: 1.6, spaceBetween: 18 },
+      640: { slidesPerView: 2.2, spaceBetween: 22 },
+      900: { slidesPerView: 3, spaceBetween: 28 }
     },
     effect: "slide",
-    speed: 600
+    speed: 650
   });
   wrap.dataset.mangroInit = "1";
 

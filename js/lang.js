@@ -242,3 +242,40 @@ if (typeof langData !== "undefined") {
     if (!document.hidden) reapply();
   });
 })();
+
+
+// --- پاک‌سازی خودکار ایموجی از تیترها (حتی اگر نسخه‌ی کش‌شده یا
+//     محتوای ذخیره‌شده در پنل هنوز ایموجی داشته باشد) ---
+(function () {
+  var EMOJI = /[\u2190-\u21FF\u2300-\u27BF\u2B00-\u2BFF\uFE0F\u200D]|[\uD83C-\uDBFF][\uDC00-\uDFFF]/g;
+  function clean(el) {
+    if (!el) return;
+    var before = el.innerHTML;
+    var after = before.replace(EMOJI, "").replace(/^\s+|\s+$/g, "").replace(/\s{2,}/g, " ");
+    if (after !== before) el.innerHTML = after;
+  }
+  function stripTitles() {
+    document.querySelectorAll(
+      ".section-title-grad, .section-head h1, .section-head h2, .section-head h3, .section-title, .features-section .section-title"
+    ).forEach(clean);
+  }
+  window.MangroStripTitleEmoji = stripTitles;
+
+  // بعد از هر تغییر زبان
+  if (typeof window.updateTexts === "function") {
+    var orig = window.updateTexts;
+    window.updateTexts = function (lang) {
+      orig(lang);
+      stripTitles();
+    };
+  }
+  window.addEventListener("mangro:content-ready", stripTitles);
+  window.addEventListener("pageshow", stripTitles);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", stripTitles);
+  } else {
+    stripTitles();
+  }
+  setTimeout(stripTitles, 300);
+  setTimeout(stripTitles, 1200);
+})();
