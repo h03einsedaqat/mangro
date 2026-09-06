@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">فروش محصول با بارکد در اکسل - نرم‌افزار حسابداری مانگرو</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../style/swiper.css">
+    <link rel="stylesheet" href="../style/style.css">
+    
+    <style>
+        /* ===== استایل‌های اختصاصی صفحه بارکد ===== */
+        
+        /* بنر بالای صفحه */
+        .barcode-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f3460 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+            border-radius: 0 0 40px 40px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .barcode-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 152, 0, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .barcode-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 50%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(255, 152, 0, 0.05) 0%, transparent 60%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .barcode-hero .icon-big {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .barcode-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .barcode-hero h1 span {
+            background: linear-gradient(135deg, #ff9800, #fbbf24);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .barcode-hero .sub-title {
+            font-size: 1.15rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 750px;
+            margin: 0 auto 8px;
+            position: relative;
+            z-index: 1;
+            line-height: 1.8;
+        }
+        
+        .barcode-hero .badge {
+            display: inline-block;
+            background: rgba(255, 152, 0, 0.15);
+            color: #ff9800;
+            padding: 6px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ===== بخش ویژگی‌ها ===== */
+        .features-section {
+            padding: 20px 0 50px;
+        }
+        
+        .features-section .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .features-section .section-desc {
+            text-align: center;
+            color: #6b7280;
+            font-size: 1.05rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+        
+        .features-section .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff9800, #fbbf24);
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-item-barcode {
+            background: #ffffff;
+            padding: 28px 22px;
+            border-radius: 20px;
+            border: 1px solid #f1f3f5;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item-barcode:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            border-color: rgba(255, 152, 0, 0.2);
+        }
+        
+        .feature-item-barcode .icon {
+            font-size: 2.2rem;
+            color: #ff9800;
+            display: block;
+            margin-bottom: 12px;
+        }
+        
+        .feature-item-barcode h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 6px;
+        }
+        
+        .feature-item-barcode p {
+            font-size: 0.85rem;
+            color: #6b7280;
+            line-height: 1.6;
+        }
+        
+        /* ===== بخش نسخه‌های برنامه ===== */
+        .versions-section {
+            padding: 20px 0 50px;
+        }
+        
+        .versions-section .section-title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .versions-section .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff9800, #fbbf24);
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+        
+        .versions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .version-card {
+            background: #ffffff;
+            padding: 30px 25px;
+            border-radius: 24px;
+            border: 1px solid #f1f3f5;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .version-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            border-color: rgba(255, 152, 0, 0.2);
+        }
+        
+        .version-card .version-icon {
+            font-size: 2.5rem;
+            color: #ff9800;
+            display: block;
+            margin-bottom: 12px;
+        }
+        
+        .version-card h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+        
+        .version-card p {
+            font-size: 0.9rem;
+            color: #6b7280;
+            line-height: 1.7;
+        }
+        
+        .version-card .version-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 18px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .version-card .version-badge.simple {
+            background: rgba(52, 211, 153, 0.12);
+            color: #10b981;
+        }
+        
+        .version-card .version-badge.advanced {
+            background: rgba(255, 152, 0, 0.12);
+            color: #ff9800;
+        }
+        
+        /* ===== گالری اسلایدر (Carousel) ===== */
+        .gallery-carousel {
+            padding: 40px 0 60px;
+            background: transparent;
+            margin: 20px 0;
+        }
+        
+        .gallery-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+        
+        .gallery-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff9800, #fbbf24);
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+        
+        /* استایل کانتینر اصلی Swiper */
+        .swiper {
+            width: 100%;
+            max-width: 800px;
+            height: 450px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: #1a1a1a;
+        }
+        
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+        
+        .swiper-slide:hover img {
+            transform: scale(1.02);
+        }
+        
+        /* سفارشی‌سازی دکمه‌ها و صفحه‌بندی Swiper */
+        .swiper-button-prev,
+        .swiper-button-next {
+            color: #fff;
+            background: rgba(0, 0, 0, 0.4);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            transition: 0.3s;
+        }
+        
+        .swiper-button-prev:hover,
+        .swiper-button-next:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .swiper-pagination-bullet {
+            background: rgba(255, 255, 255, 0.5);
+            opacity: 1;
+        }
+        
+        .swiper-pagination-bullet-active {
+            background: #ff9800;
+        }
+        
+        /* ===== بخش ویدیو ===== */
+        .video-section {
+            padding: 40px 0 60px;
+            background: transparent;
+            margin: 20px 0;
+        }
+        
+        .video-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+        
+        .video-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #ff9800, #fbbf24);
+            margin: 10px auto 0;
+            border-radius: 4px;
+        }
+        
+        .video-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: #1a1a1a;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .video-btn-wrapper {
+            text-align: center;
+            margin-top: 25px;
+        }
+        
+        .btn-video {
+            display: inline-block;
+            background: #ff9800;
+            color: #ffffff;
+            padding: 14px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 8px 20px rgba(255, 152, 0, 0.35);
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn-video:hover {
+            background: #e68900;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 28px rgba(255, 152, 0, 0.45);
+        }
+        
+        /* ===== لایت‌باکس ===== */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .lightbox-overlay.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            cursor: default;
+            animation: zoomIn 0.3s ease;
+        }
+        
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 48px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: 0.3s;
+            z-index: 10000;
+            background: none;
+            border: none;
+            line-height: 1;
+        }
+        
+        .lightbox-close:hover {
+            transform: rotate(90deg);
+            color: #ff9800;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        /* ===== دکمه دانلود ===== */
+        .download-cta {
+            text-align: center;
+            padding: 20px 0 60px;
+        }
+        
+        .download-cta .btn-download {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff9800, #fbbf24);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 18px 50px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .download-cta .btn-download:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 45px rgba(255, 152, 0, 0.4);
+        }
+        
+        .download-cta .btn-download i {
+            margin-left: 10px;
+        }
+        
+        /* ============================================================ */
+        /* ===== ریسپانسیو ===== */
+        /* ============================================================ */
+        
+        @media (max-width: 992px) {
+            .barcode-hero h1 {
+                font-size: 2.4rem;
+            }
+            .barcode-hero {
+                padding: 60px 0 40px;
+            }
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            .swiper {
+                height: 380px;
+            }
+        }
+        
+        @media (max-width: 850px) {
+            .barcode-hero h1 {
+                font-size: 2rem;
+            }
+            .barcode-hero .sub-title {
+                font-size: 1rem;
+                padding: 0 15px;
+            }
+            .features-grid {
+                gap: 18px;
+            }
+            .feature-item-barcode {
+                padding: 22px 18px;
+            }
+            .feature-item-barcode .icon {
+                font-size: 1.8rem;
+            }
+            .feature-item-barcode h3 {
+                font-size: 0.95rem;
+            }
+            .versions-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+            }
+            .swiper {
+                height: 320px;
+            }
+            .swiper-button-prev,
+            .swiper-button-next {
+                width: 36px;
+                height: 36px;
+            }
+            .swiper-button-prev::after,
+            .swiper-button-next::after {
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .barcode-hero h1 {
+                font-size: 1.6rem;
+            }
+            .barcode-hero .icon-big {
+                font-size: 3rem;
+            }
+            .barcode-hero {
+                padding: 40px 0 30px;
+                border-radius: 0 0 28px 28px;
+            }
+            .barcode-hero .sub-title {
+                font-size: 0.9rem;
+            }
+            .barcode-hero .badge {
+                font-size: 0.75rem;
+                padding: 4px 14px;
+            }
+            
+            .features-section .section-title,
+            .versions-section .section-title,
+            .gallery-title,
+            .video-title {
+                font-size: 1.5rem;
+            }
+            .features-section .section-desc {
+                font-size: 0.95rem;
+                padding: 0 15px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 400px;
+                gap: 15px;
+            }
+            
+            .swiper {
+                height: 250px;
+                border-radius: 14px;
+            }
+            .swiper-button-prev,
+            .swiper-button-next {
+                width: 28px;
+                height: 28px;
+            }
+            .swiper-button-prev::after,
+            .swiper-button-next::after {
+                font-size: 11px;
+            }
+            .swiper-button-prev {
+                left: 5px;
+            }
+            .swiper-button-next {
+                right: 5px;
+            }
+            .swiper-pagination-bullet {
+                width: 8px;
+                height: 8px;
+            }
+            
+            .video-wrapper {
+                border-radius: 14px;
+            }
+            .btn-video {
+                padding: 10px 25px;
+                font-size: 15px;
+            }
+            
+            .download-cta .btn-download {
+                font-size: 1rem;
+                padding: 14px 35px;
+            }
+            
+            .version-card {
+                padding: 24px 18px;
+            }
+            .version-card h3 {
+                font-size: 1.1rem;
+            }
+            
+            .lightbox-close {
+                top: 20px;
+                right: 20px;
+                font-size: 36px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .barcode-hero h1 {
+                font-size: 1.3rem;
+            }
+            .barcode-hero .sub-title {
+                font-size: 0.8rem;
+            }
+            
+            .features-section .section-title,
+            .versions-section .section-title,
+            .gallery-title,
+            .video-title {
+                font-size: 1.2rem;
+            }
+            
+            .feature-item-barcode {
+                padding: 18px 14px;
+            }
+            .feature-item-barcode .icon {
+                font-size: 1.5rem;
+            }
+            .feature-item-barcode h3 {
+                font-size: 0.85rem;
+            }
+            .feature-item-barcode p {
+                font-size: 0.8rem;
+            }
+            
+            .swiper {
+                height: 200px;
+            }
+            
+            .download-cta .btn-download {
+                font-size: 0.9rem;
+                padding: 12px 28px;
+            }
+            
+            .lightbox-close {
+                top: 15px;
+                right: 15px;
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ====== عنوان صفحه (مخفی) برای تغییر با جاوااسکریپت ====== -->
+    <span id="pageTitle" data-lang="barcode_page_title" style="display:none;"></span>
+
+    <!-- ========== هدر (سربرگ) ========== -->
+    <header>
+        <div class="container header-flex">
+            <button class="hamburger" id="hamburgerBtn" aria-label="منو">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav" id="navMenu">
+                <a href="../index.html" data-lang="nav_home">خانه</a>
+                <a href="../index.html#features" data-lang="nav_features">امکانات</a>
+                <a href="../index.html#gallery-carousel" data-lang="nav_gallery">تصاویر</a>
+                <a href="../index.html#video-section" data-lang="nav_video">ویدیو</a>
+                <a href="../index.html#download-section" data-lang="nav_download">دانلود</a>
+                <a href="../index.html#excel-section" data-lang="nav_excel">نرم‌افزار اکسل</a>
+                <a href="../index.html#contact-section" data-lang="nav_contact">تماس با ما</a>
+                <!-- ===== منوی کشویی زبان ===== -->
+                <div class="lang-dropdown">
+                    <button class="lang-dropdown-btn" id="langDropdownBtn">
+                        <span id="currentLangLabel">فارسی</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <ul class="lang-dropdown-menu" id="langDropdownMenu">
+                        <li data-lang="fa" class="active">فارسی</li>
+                        <li data-lang="en">English</li>
+                        <li data-lang="ar">العربية</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../img/logo.webp" alt="لوگو مانگرو">
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== بنر اصلی ========== -->
+    <section class="barcode-hero">
+        <div class="container">
+            <span class="icon-big">📱</span>
+            <h1 data-lang="barcode_hero_title">فروش محصول با <span>بارکد</span></h1>
+            <p class="sub-title" data-lang="barcode_hero_sub">
+                بهترین برنامه فروش محصول با بارکد در اکسل<br>
+                دیگر نیاز به خرید برنامه‌های گران‌قیمت و پیچیده ندارید.
+            </p>
+            <span class="badge" data-lang="barcode_hero_badge"><i class="fas fa-tag"></i> در دو نسخه ساده و پیشرفته</span>
+        </div>
+    </section>
+
+    <!-- ========== بخش ویژگی‌ها ========== -->
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title" data-lang="barcode_features_title">✨ ویژگی‌های برنامه</h2>
+            <p class="section-desc" data-lang="barcode_features_desc">
+                برنامه فروش محصول با بارکد در اکسل، راهکاری ساده و کارآمد برای مدیریت فروش محصولات با استفاده از بارکد است. 
+                این برنامه در دو نسخه ساده و پیشرفته تهیه شده که به تناسب نیاز کاربران قابل استفاده است.
+            </p>
+
+            <div class="features-grid">
+                <div class="feature-item-barcode">
+                    <span class="icon"><i class="fas fa-barcode"></i></span>
+                    <h3 data-lang="barcode_feature1_title">خواندن بارکد محصولات</h3>
+                    <p data-lang="barcode_feature1_desc">امکان خواندن بارکد محصولات با استفاده از اسکنر بارکد و ورود خودکار اطلاعات</p>
+                </div>
+                <div class="feature-item-barcode">
+                    <span class="icon"><i class="fas fa-cart-plus"></i></span>
+                    <h3 data-lang="barcode_feature2_title">ثبت سریع فروش</h3>
+                    <p data-lang="barcode_feature2_desc">ثبت فروش محصولات با کمترین زمان و بدون نیاز به وارد کردن دستی اطلاعات</p>
+                </div>
+                <div class="feature-item-barcode">
+                    <span class="icon"><i class="fas fa-boxes"></i></span>
+                    <h3 data-lang="barcode_feature3_title">مدیریت موجودی انبار</h3>
+                    <p data-lang="barcode_feature3_desc">بروزرسانی خودکار موجودی کالاها پس از هر فروش با استفاده از بارکد</p>
+                </div>
+                <div class="feature-item-barcode">
+                    <span class="icon"><i class="fas fa-file-invoice"></i></span>
+                    <h3 data-lang="barcode_feature4_title">صدور فاکتور فروش</h3>
+                    <p data-lang="barcode_feature4_desc">صدور فاکتور فروش به همراه جزئیات کامل محصولات فروخته شده</p>
+                </div>
+                <div class="feature-item-barcode">
+                    <span class="icon"><i class="fas fa-chart-line"></i></span>
+                    <h3 data-lang="barcode_feature5_title">گزارشات فروش</h3>
+                    <p data-lang="barcode_feature5_desc">تهیه گزارشات فروش روزانه، هفتگی و ماهانه به تفکیک هر محصول</p>
+                </div>
+                <div class="feature-item-barcode">
+                    <span class="icon"><i class="fas fa-print"></i></span>
+                    <h3 data-lang="barcode_feature6_title">چاپ بارکد محصولات</h3>
+                    <p data-lang="barcode_feature6_desc">امکان طراحی و چاپ بارکد برای محصولات جدید به صورت حرفه‌ای</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== بخش نسخه‌های برنامه ========== -->
+    <section class="versions-section">
+        <div class="container">
+            <h2 class="section-title" data-lang="barcode_versions_title">📦 نسخه‌های برنامه</h2>
+
+            <div class="versions-grid">
+                <div class="version-card">
+                    <span class="version-icon"><i class="fas fa-rocket"></i></span>
+                    <h3 data-lang="barcode_version_simple_title">نسخه ساده</h3>
+                    <p data-lang="barcode_version_simple_desc">مناسب برای فروشگاه‌های کوچک و کاربرانی که نیاز به امکانات پایه فروش با بارکد دارند.</p>
+                    <span class="version-badge simple" data-lang="barcode_version_simple_badge">مناسب برای شروع</span>
+                </div>
+                <div class="version-card">
+                    <span class="version-icon"><i class="fas fa-crown"></i></span>
+                    <h3 data-lang="barcode_version_advanced_title">نسخه پیشرفته</h3>
+                    <p data-lang="barcode_version_advanced_desc">مناسب برای فروشگاه‌های بزرگ با امکانات کامل گزارش‌گیری، مدیریت انبار و چاپ بارکد.</p>
+                    <span class="version-badge advanced" data-lang="barcode_version_advanced_badge">امکانات کامل</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== گالری اسلایدر (Carousel) ========== -->
+    <section class="gallery-carousel">
+        <div class="container">
+            <h2 class="gallery-title" data-lang="barcode_gallery_title">🖼️ تصاویر برنامه</h2>
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" data-image="../img/mangroapp.jpg">
+                        <img src="../img/mangroapp.jpg" alt="تصویر برنامه فروش با بارکد ۱">
+                    </div>
+                    <div class="swiper-slide" data-image="../img/slide1.webp">
+                        <img src="../img/slide1.webp" alt="تصویر برنامه فروش با بارکد ۲">
+                    </div>
+                    <div class="swiper-slide" data-image="../img/slide2.webp">
+                        <img src="../img/slide2.webp" alt="تصویر برنامه فروش با بارکد ۳">
+                    </div>
+                    <div class="swiper-slide" data-image="../img/slide3.webp">
+                        <img src="../img/slide3.webp" alt="تصویر برنامه فروش با بارکد ۴">
+                    </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== بخش ویدیو ========== -->
+    <section class="video-section">
+        <div class="container">
+            <h2 class="video-title" data-lang="video_title">🎥 ویدیوی معرفی نرم‌افزار</h2>
+            <div class="video-wrapper">
+                <video controls poster="../img/video_thumb.png">
+                    <source src="../video/mangroveapp.mp4" type="video/mp4">
+                    مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+                </video>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== دکمه دانلود ========== -->
+    <section class="download-cta">
+        <div class="container">
+            <a href="#" class="btn-download" data-lang="barcode_download_btn">
+                <i class="fas fa-download"></i>
+                دانلود برنامه فروش با بارکد
+            </a>
+        </div>
+    </section>
+
+    <!-- ========== لایت‌باکس ========== -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <img class="lightbox-content" id="lightboxImage" src="" alt="تصویر بزرگ‌شده">
+    </div>
+
+    <!-- ========== فوتر (پاصفحه) ========== -->
+    <footer>
+        <div class="container">
+            <p>© <?php echo date("Y"); ?> - <span data-lang="footer_text">تمامي حقوق برای نرم‌افزار حسابداری مانگرو محفوظ است.</span></p>
+        </div>
+    </footer>
+
+    <!-- ========== اسکریپت‌ها ========== -->
+    <script src="../js/swiper.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/lang.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ===== راه‌اندازی Swiper =====
+            var swiper = new Swiper('.mySwiper', {
+                loop: true,
+                autoplay: {
+                    delay: 4000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    320: {
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                    },
+                    768: {
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                    },
+                    1024: {
+                        slidesPerView: 1,
+                        spaceBetween: 0,
+                    },
+                },
+                effect: 'slide',
+                speed: 600,
+            });
+
+            // ===== منوی همبرگری =====
+            var hamburger = document.getElementById('hamburgerBtn');
+            var navMenu = document.getElementById('navMenu');
+
+            if (hamburger && navMenu) {
+                hamburger.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                    navMenu.classList.toggle('open');
+                });
+
+                navMenu.querySelectorAll('a').forEach(function(link) {
+                    link.addEventListener('click', function() {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('open');
+                    });
+                });
+            }
+
+            // ===== لایت‌باکس (نمایش بزرگ‌تر تصویر) =====
+            var overlay = document.getElementById('lightboxOverlay');
+            var lightboxImage = document.getElementById('lightboxImage');
+            var closeBtn = document.getElementById('lightboxClose');
+
+            document.querySelectorAll('.swiper-slide').forEach(function(slide) {
+                slide.addEventListener('click', function(e) {
+                    if (e.target.closest('.swiper-button-prev') || 
+                        e.target.closest('.swiper-button-next') || 
+                        e.target.closest('.swiper-pagination-bullet')) {
+                        return;
+                    }
+
+                    var imgSrc = this.getAttribute('data-image');
+                    if (imgSrc) {
+                        lightboxImage.src = imgSrc;
+                        overlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            closeBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                closeLightbox();
+            });
+
+            overlay.addEventListener('click', function(e) {
+                if (e.target === overlay) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && overlay.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+
+            function closeLightbox() {
+                overlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            // ===== به‌روزرسانی عنوان صفحه توسط lang.js =====
+            // lang.js به‌طور خودکار این کار را انجام می‌دهد
+        });
+    </script>
+
+</body>
+</html>

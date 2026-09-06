@@ -1,0 +1,982 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- عنوان صفحه با جاوااسکریپت به‌روز می‌شود -->
+    <title>نرم‌افزار حسابداری مانگرو</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style/swiper.css" />
+    <link rel="stylesheet" href="../style/style.css" />
+
+    <style>
+      /* ===== استایل‌های اختصاصی صفحه حسابداری با اکسل ===== */
+
+      /* بنر بالای صفحه */
+      .accounting-hero {
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e293b 50%,
+          #0f3460 100%
+        );
+        padding: 80px 0 60px;
+        text-align: center;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .accounting-hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 60%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 152, 0, 0.08) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .accounting-hero::after {
+        content: "";
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 50%;
+        height: 150%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 152, 0, 0.05) 0%,
+          transparent 60%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .accounting-hero .icon-big {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .accounting-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .accounting-hero h1 span {
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .accounting-hero .sub-title {
+        font-size: 1.3rem;
+        color: rgba(255, 255, 255, 0.8);
+        max-width: 650px;
+        margin: 0 auto 8px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .accounting-hero .users-count {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.6);
+        position: relative;
+        z-index: 1;
+      }
+
+      .accounting-hero .users-count strong {
+        color: #ff9800;
+        font-size: 1.3rem;
+      }
+
+      /* ===== بخش ویژگی‌ها ===== */
+      .features-section {
+        padding: 20px 0 50px;
+      }
+
+      .features-section .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .features-section .section-desc {
+        text-align: center;
+        color: #6b7280;
+        font-size: 1.05rem;
+        max-width: 600px;
+        margin: 0 auto 40px;
+      }
+
+      .features-section .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        margin: 10px auto 0;
+        border-radius: 4px;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 25px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .feature-item-acc {
+        background: #ffffff;
+        padding: 28px 22px;
+        border-radius: 20px;
+        border: 1px solid #f1f3f5;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+        text-align: center;
+        transition: all 0.3s ease;
+      }
+
+      .feature-item-acc:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+        border-color: rgba(255, 152, 0, 0.2);
+      }
+
+      .feature-item-acc .icon {
+        font-size: 2.2rem;
+        color: #ff9800;
+        display: block;
+        margin-bottom: 12px;
+      }
+
+      .feature-item-acc h3 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 6px;
+      }
+
+      .feature-item-acc p {
+        font-size: 0.85rem;
+        color: #6b7280;
+        line-height: 1.6;
+      }
+
+      /* ===== گالری اسلایدر (Carousel) ===== */
+      .gallery-carousel {
+        padding: 40px 0 60px;
+        background: transparent;
+        margin: 20px 0;
+      }
+
+      .gallery-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 30px;
+      }
+
+      .gallery-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        margin: 10px auto 0;
+        border-radius: 4px;
+      }
+
+      /* استایل کانتینر اصلی Swiper */
+      .swiper {
+        width: 100%;
+        max-width: 800px;
+        height: 450px;
+        margin: 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background: #1a1a1a;
+      }
+
+      .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+
+      .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .swiper-slide:hover img {
+        transform: scale(1.02);
+      }
+
+      /* سفارشی‌سازی دکمه‌ها و صفحه‌بندی Swiper */
+      .swiper-button-prev,
+      .swiper-button-next {
+        color: #fff;
+        background: rgba(0, 0, 0, 0.4);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+
+      .swiper-button-prev:hover,
+      .swiper-button-next:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .swiper-button-prev::after,
+      .swiper-button-next::after {
+        font-size: 18px;
+        font-weight: bold;
+      }
+
+      .swiper-pagination-bullet {
+        background: rgba(255, 255, 255, 0.5);
+        opacity: 1;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: #ff9800;
+      }
+
+      /* ===== بخش ویدیو ===== */
+      .video-section {
+        padding: 40px 0 60px;
+        background: transparent;
+        margin: 20px 0;
+      }
+
+      .video-title {
+        text-align: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 30px;
+      }
+
+      .video-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        margin: 10px auto 0;
+        border-radius: 4px;
+      }
+
+      .video-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        background: #1a1a1a;
+        aspect-ratio: 16 / 9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .video-wrapper video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .video-btn-wrapper {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .btn-video {
+        display: inline-block;
+        background: #ff9800;
+        color: #ffffff;
+        padding: 14px 45px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 18px;
+        box-shadow: 0 8px 20px rgba(255, 152, 0, 0.35);
+        transition: 0.3s;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-video:hover {
+        background: #e68900;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 28px rgba(255, 152, 0, 0.45);
+      }
+
+      /* ===== لایت‌باکس ===== */
+      .lightbox-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .lightbox-overlay.active {
+        display: flex;
+      }
+
+      .lightbox-content {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+        border-radius: 8px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+        cursor: default;
+        animation: zoomIn 0.3s ease;
+      }
+
+      .lightbox-close {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        color: #fff;
+        font-size: 48px;
+        font-weight: 300;
+        cursor: pointer;
+        transition: 0.3s;
+        z-index: 10000;
+        background: none;
+        border: none;
+        line-height: 1;
+      }
+
+      .lightbox-close:hover {
+        transform: rotate(90deg);
+        color: #ff9800;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* ===== دکمه دانلود ===== */
+      .download-cta {
+        text-align: center;
+        padding: 20px 0 60px;
+      }
+
+      .download-cta .btn-download {
+        display: inline-block;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 700;
+        padding: 18px 50px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 10px 30px rgba(255, 152, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .download-cta .btn-download:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 45px rgba(255, 152, 0, 0.4);
+      }
+
+      .download-cta .btn-download i {
+        margin-left: 10px;
+      }
+
+      /* ============================================================ */
+      /* ===== ریسپانسیو ===== */
+      /* ============================================================ */
+
+      @media (max-width: 992px) {
+        .accounting-hero h1 {
+          font-size: 2.4rem;
+        }
+        .accounting-hero {
+          padding: 60px 0 40px;
+        }
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+        .swiper {
+          height: 380px;
+        }
+      }
+
+      @media (max-width: 850px) {
+        .accounting-hero h1 {
+          font-size: 2rem;
+        }
+        .accounting-hero .sub-title {
+          font-size: 1.1rem;
+          padding: 0 15px;
+        }
+        .features-grid {
+          gap: 18px;
+        }
+        .feature-item-acc {
+          padding: 22px 18px;
+        }
+        .feature-item-acc .icon {
+          font-size: 1.8rem;
+        }
+        .feature-item-acc h3 {
+          font-size: 0.95rem;
+        }
+        .swiper {
+          height: 320px;
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+          width: 36px;
+          height: 36px;
+        }
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+          font-size: 14px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .accounting-hero h1 {
+          font-size: 1.6rem;
+        }
+        .accounting-hero .icon-big {
+          font-size: 3rem;
+        }
+        .accounting-hero {
+          padding: 40px 0 30px;
+          border-radius: 0 0 28px 28px;
+        }
+        .accounting-hero .sub-title {
+          font-size: 1rem;
+        }
+        .accounting-hero .users-count {
+          font-size: 0.95rem;
+        }
+
+        .features-section .section-title,
+        .gallery-title,
+        .video-title {
+          font-size: 1.5rem;
+        }
+        .features-section .section-desc {
+          font-size: 0.95rem;
+          padding: 0 15px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+          max-width: 400px;
+          gap: 15px;
+        }
+
+        .swiper {
+          height: 250px;
+          border-radius: 14px;
+        }
+        .swiper-button-prev,
+        .swiper-button-next {
+          width: 28px;
+          height: 28px;
+        }
+        .swiper-button-prev::after,
+        .swiper-button-next::after {
+          font-size: 11px;
+        }
+        .swiper-button-prev {
+          left: 5px;
+        }
+        .swiper-button-next {
+          right: 5px;
+        }
+        .swiper-pagination-bullet {
+          width: 8px;
+          height: 8px;
+        }
+
+        .video-wrapper {
+          border-radius: 14px;
+        }
+        .btn-video {
+          padding: 10px 25px;
+          font-size: 15px;
+        }
+
+        .download-cta .btn-download {
+          font-size: 1rem;
+          padding: 14px 35px;
+        }
+
+        .lightbox-close {
+          top: 20px;
+          right: 20px;
+          font-size: 36px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .accounting-hero h1 {
+          font-size: 1.3rem;
+        }
+        .accounting-hero .sub-title {
+          font-size: 0.85rem;
+        }
+        .accounting-hero .users-count {
+          font-size: 0.8rem;
+        }
+        .accounting-hero .users-count strong {
+          font-size: 1rem;
+        }
+
+        .features-section .section-title,
+        .gallery-title,
+        .video-title {
+          font-size: 1.2rem;
+        }
+
+        .feature-item-acc {
+          padding: 18px 14px;
+        }
+        .feature-item-acc .icon {
+          font-size: 1.5rem;
+        }
+        .feature-item-acc h3 {
+          font-size: 0.85rem;
+        }
+        .feature-item-acc p {
+          font-size: 0.8rem;
+        }
+
+        .swiper {
+          height: 200px;
+        }
+
+        .download-cta .btn-download {
+          font-size: 0.9rem;
+          padding: 12px 28px;
+        }
+
+        .lightbox-close {
+          top: 15px;
+          right: 15px;
+          font-size: 30px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ====== عنوان صفحه (مخفی) برای تغییر با جاوااسکریپت ====== -->
+    <!-- <span
+      id="pageTitle"
+      data-lang="accounting_page_title"
+      style="display: none"
+    ></span> -->
+
+    <!-- ========== هدر (سربرگ) ========== -->
+    <header>
+      <div class="container header-flex">
+        <button class="hamburger" id="hamburgerBtn" aria-label="منو">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav" id="navMenu">
+          <a href="../index.html" data-lang="nav_home">خانه</a>
+          <a href="../index.html#features" data-lang="nav_features">امکانات</a>
+          <a href="../index.html#gallery-carousel" data-lang="nav_gallery"
+            >تصاویر</a
+          >
+          <a href="../index.html#video-section" data-lang="nav_video">ویدیو</a>
+          <a href="../index.html#download-section" data-lang="nav_download"
+            >دانلود</a
+          >
+          <a href="../index.html#excel-section" data-lang="nav_excel"
+            >نرم‌افزار اکسل</a
+          >
+          <a href="../index.html#contact-section" data-lang="nav_contact"
+            >تماس با ما</a
+          >
+          <!-- ===== منوی کشویی زبان ===== -->
+          <div class="lang-dropdown">
+            <button class="lang-dropdown-btn" id="langDropdownBtn">
+              <span id="currentLangLabel">فارسی</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="lang-dropdown-menu" id="langDropdownMenu">
+              <li data-lang="fa" class="active">فارسی</li>
+              <li data-lang="en">English</li>
+              <li data-lang="ar">العربية</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="logo">
+          <a href="../index.html">
+            <img src="../img/logo.webp" alt="لوگو مانگرو" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== بنر اصلی ========== -->
+    <section class="accounting-hero">
+      <div class="container">
+        <span class="icon-big">📊</span>
+        <h1 data-lang="accounting_hero_title">حسابداری با <span>اکسل</span></h1>
+        <p class="sub-title" data-lang="accounting_hero_sub">
+          ارزان‌ترین و بهترین برنامه حسابداری با اکسل
+        </p>
+        <p class="users-count" data-lang="accounting_hero_users">
+          با بیش از <strong>۵۸۰</strong> کاربر فعال تا سال ۱۳۹۷ در سراسر ایران
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== بخش ویژگی‌ها ========== -->
+    <section class="features-section">
+      <div class="container">
+        <h2 class="section-title" data-lang="accounting_features_title">
+          ✨ ویژگی‌های برنامه
+        </h2>
+        <p class="section-desc" data-lang="accounting_features_desc">
+          برنامه حسابداری با اکسل، تمام نیازهای حسابداری شما را به ساده‌ترین شکل
+          ممکن پوشش می‌دهد.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-list-ul"></i></span>
+            <h3 data-lang="accounting_feature1_title">
+              تعریف حساب‌ها به دلخواه شما
+            </h3>
+            <p data-lang="accounting_feature1_desc">
+              امکان تعریف و ویرایش حساب‌های مالی بر اساس نیاز کسب‌وکار شما
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-file-invoice"></i></span>
+            <h3 data-lang="accounting_feature2_title">
+              صدور سریع اسناد حسابداری
+            </h3>
+            <p data-lang="accounting_feature2_desc">
+              ثبت و صدور اسناد حسابداری با سرعت بالا و بدون پیچیدگی
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-paperclip"></i></span>
+            <h3 data-lang="accounting_feature3_title">
+              پیوست عکس یا PDF به هر سند
+            </h3>
+            <p data-lang="accounting_feature3_desc">
+              امکان ضمیمه کردن فایل‌های تصویری یا PDF به تمام اسناد
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-chart-pie"></i></span>
+            <h3 data-lang="accounting_feature4_title">
+              تهیه تراز مالی دقیق و سریع
+            </h3>
+            <p data-lang="accounting_feature4_desc">
+              گزارش‌گیری تراز مالی، سود و زیان و صورت‌های مالی به‌صورت آنی
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-print"></i></span>
+            <h3 data-lang="accounting_feature5_title">چاپ اسناد و گزارش‌ها</h3>
+            <p data-lang="accounting_feature5_desc">
+              چاپ مستقیم اسناد حسابداری و کلیه گزارش‌های مالی
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-cloud-upload-alt"></i></span>
+            <h3 data-lang="accounting_feature6_title">
+              پشتیبان‌گیری خودکار روی سرور
+            </h3>
+            <p data-lang="accounting_feature6_desc">
+              ذخیره خودکار اطلاعات روی سرور و بازیابی آسان در هر زمان
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-globe"></i></span>
+            <h3 data-lang="accounting_feature7_title">
+              انتخاب زبان دلخواه برنامه
+            </h3>
+            <p data-lang="accounting_feature7_desc">
+              امکان تغییر زبان برنامه به فارسی، انگلیسی و زبان‌های دیگر
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-calendar-alt"></i></span>
+            <h3 data-lang="accounting_feature8_title">
+              استفاده از تقویم شمسی یا میلادی
+            </h3>
+            <p data-lang="accounting_feature8_desc">
+              انتخاب تقویم مورد نظر برای ثبت و گزارش‌گیری مالی
+            </p>
+          </div>
+          <div class="feature-item-acc">
+            <span class="icon"><i class="fas fa-file-pdf"></i></span>
+            <h3 data-lang="accounting_feature9_title">
+              کاردکس هر حساب با خروجی PDF
+            </h3>
+            <p data-lang="accounting_feature9_desc">
+              دریافت کاردکس حساب‌ها به صورت فایل PDF برای هر دوره مالی
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== گالری اسلایدر (Carousel) ========== -->
+    <section class="gallery-carousel">
+      <div class="container">
+        <h2 class="gallery-title" data-lang="accounting_gallery_title">
+          🖼️ تصاویر برنامه
+        </h2>
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide" data-image="../img/mangroapp.jpg">
+              <img src="../img/mangroapp.jpg" alt="تصویر برنامه حسابداری ۱" />
+            </div>
+            <div class="swiper-slide" data-image="../img/slide1.webp">
+              <img src="../img/slide1.webp" alt="تصویر برنامه حسابداری ۲" />
+            </div>
+            <div class="swiper-slide" data-image="../img/slide2.webp">
+              <img src="../img/slide2.webp" alt="تصویر برنامه حسابداری ۳" />
+            </div>
+            <div class="swiper-slide" data-image="../img/slide3.webp">
+              <img src="../img/slide3.webp" alt="تصویر برنامه حسابداری ۴" />
+            </div>
+          </div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== بخش ویدیو ========== -->
+    <section class="video-section">
+      <div class="container">
+        <h2 class="video-title" data-lang="video_title">
+          🎥 ویدیوی معرفی نرم‌افزار
+        </h2>
+        <div class="video-wrapper">
+          <video controls poster="../img/video_thumb.png">
+            <source src="../video/mangroveapp.mp4" type="video/mp4" />
+            مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== دکمه دانلود ========== -->
+    <section class="download-cta">
+      <div class="container">
+        <a
+          href="http://ghasemvojdani.ir/powerexcel/regester.php?appcode=02"
+          class="btn-download"
+          data-lang="accounting_download_btn"
+        >
+          <i class="fas fa-download"></i>
+          دانلود برنامه حسابداری با اکسل
+        </a>
+      </div>
+    </section>
+
+    <!-- ========== لایت‌باکس ========== -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+      <button class="lightbox-close" id="lightboxClose">&times;</button>
+      <img
+        class="lightbox-content"
+        id="lightboxImage"
+        src=""
+        alt="تصویر بزرگ‌شده"
+      />
+    </div>
+
+    <!-- ========== فوتر (پاصفحه) ========== -->
+    <footer>
+      <div class="container">
+        <p>
+          © <?php echo date("Y"); ?> -
+          <span data-lang="footer_text"
+            >تمامی حقوق برای نرم‌افزار حسابداری مانگرو محفوظ است.</span
+          >
+        </p>
+      </div>
+    </footer>
+
+    <!-- ========== اسکریپت‌ها ========== -->
+    <script src="../js/swiper.js"></script>
+    <script src="../js/language.js"></script>
+    <script src="../js/lang.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ===== راه‌اندازی Swiper =====
+        var swiper = new Swiper(".mySwiper", {
+          loop: true,
+          autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+          },
+          pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+          },
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+          },
+          breakpoints: {
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 0,
+            },
+            768: {
+              slidesPerView: 1,
+              spaceBetween: 0,
+            },
+            1024: {
+              slidesPerView: 1,
+              spaceBetween: 0,
+            },
+          },
+          effect: "slide",
+          speed: 600,
+        });
+
+        // ===== منوی همبرگری =====
+        var hamburger = document.getElementById("hamburgerBtn");
+        var navMenu = document.getElementById("navMenu");
+
+        if (hamburger && navMenu) {
+          hamburger.addEventListener("click", function () {
+            this.classList.toggle("active");
+            navMenu.classList.toggle("open");
+          });
+
+          navMenu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              hamburger.classList.remove("active");
+              navMenu.classList.remove("open");
+            });
+          });
+        }
+
+        // ===== لایت‌باکس (نمایش بزرگ‌تر تصویر) =====
+        var overlay = document.getElementById("lightboxOverlay");
+        var lightboxImage = document.getElementById("lightboxImage");
+        var closeBtn = document.getElementById("lightboxClose");
+
+        document.querySelectorAll(".swiper-slide").forEach(function (slide) {
+          slide.addEventListener("click", function (e) {
+            if (
+              e.target.closest(".swiper-button-prev") ||
+              e.target.closest(".swiper-button-next") ||
+              e.target.closest(".swiper-pagination-bullet")
+            ) {
+              return;
+            }
+
+            var imgSrc = this.getAttribute("data-image");
+            if (imgSrc) {
+              lightboxImage.src = imgSrc;
+              overlay.classList.add("active");
+              document.body.style.overflow = "hidden";
+            }
+          });
+        });
+
+        closeBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          closeLightbox();
+        });
+
+        overlay.addEventListener("click", function (e) {
+          if (e.target === overlay) {
+            closeLightbox();
+          }
+        });
+
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && overlay.classList.contains("active")) {
+            closeLightbox();
+          }
+        });
+
+        function closeLightbox() {
+          overlay.classList.remove("active");
+          document.body.style.overflow = "";
+        }
+
+        // ===== به‌روزرسانی عنوان صفحه =====
+        // این کار توسط app.js انجام می‌شود (اگر در آنجا تنظیم شده باشد)
+        // اما برای اطمینان، اگر pageTitle وجود داشت، title را تنظیم می‌کنیم.
+        var pageTitleSpan = document.getElementById("pageTitle");
+        if (pageTitleSpan) {
+          // اگر app.js عنوان را به‌روز نکرد، اینجا یک بار تنظیم می‌کنیم.
+          // اما app.js باید این کار را انجام دهد.
+        }
+      });
+    </script>
+  </body>
+</html>

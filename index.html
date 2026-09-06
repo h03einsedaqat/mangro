@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>نرم‌افزار حسابداری مانگرو</title>
+    <!-- <link rel="stylesheet" href="./fontawesome.min.css"> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./style/swiper.css" />
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+  <body>
+    <!-- ========== هدر (سربرگ) ========== -->
+    <header>
+      <div class="container header-flex">
+        <!-- دکمه همبرگری -->
+        <button class="hamburger" id="hamburgerBtn" aria-label="منو">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <!-- منوی ناوبری -->
+        <div class="nav" id="navMenu">
+          <a href="#hero-section" id="homeLink" data-lang="nav_home">خانه</a>
+          <a href="#features" data-lang="nav_features">امکانات</a>
+          <a href="#gallery-carousel" data-lang="nav_gallery">تصاویر</a>
+          <a href="#video-section" data-lang="nav_video">ویدیو</a>
+          <a href="#download-section" data-lang="nav_download">دانلود</a>
+          <a href="#excel-section" data-lang="nav_excel">نرم‌افزار اکسل</a>
+          <a href="#contact-section" data-lang="nav_contact">تماس با ما</a>
+          <!-- ===== منوی کشویی زبان ===== -->
+          <div class="lang-dropdown">
+            <button class="lang-dropdown-btn" id="langDropdownBtn">
+              <span id="currentLangLabel">فارسی</span>
+              <i class="fas fa-chevron-down"></i>
+            </button>
+            <ul class="lang-dropdown-menu" id="langDropdownMenu">
+              <li data-lang="fa" class="active">فارسی</li>
+              <li data-lang="en">English</li>
+              <li data-lang="ar">العربية</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="logo">
+          <a href="./index.html">
+            <img src="./img/logo.webp" alt="لوگو مانگرو" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== بخش اصلی (Hero + آیفون) ========== -->
+    <main class="container">
+      <section id="hero-section" class="hero-section">
+        <!-- متن قهرمان -->
+        <div class="hero-text">
+          <h1 data-lang="hero_title">
+            حسابداری <span>مانگرو</span> در گوشی شما
+          </h1>
+          <p data-lang="hero_desc">
+            همه امکانات حسابداری حرفه‌ای را به ساده‌ترین شکل ممکن در موبایل خود
+            تجربه کنید.
+          </p>
+          <a
+            href="https://cafebazaar.ir/app/ir.power.excel.hesabdartest"
+            target="_blank"
+            class="btn"
+            data-lang="hero_btn"
+            >دانلود اپلیکیشن</a
+          >
+        </div>
+
+        <!-- گوشی آیفون با تصویر تمام‌صفحه -->
+        <div class="iphone-wrapper">
+          <div class="iphone">
+            <div class="side-btn-top"></div>
+            <div class="side-btn-bottom"></div>
+            <div class="notch">
+              <span class="camera"></span>
+              <span class="speaker"></span>
+            </div>
+            <div class="screen">
+              <img
+                src="./img/showcase.jpg"
+                alt="نمایش برنامه حسابداری مانگرو"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- بخش قهرمان در سایز موبایل -->
+      <section id="hero-section-sm" class="hero-section-sm">
+        <!-- گوشی آیفون با تصویر تمام‌صفحه -->
+        <div class="iphone-wrapper">
+          <div class="iphone">
+            <div class="side-btn-top"></div>
+            <div class="side-btn-bottom"></div>
+            <div class="notch">
+              <span class="camera"></span>
+              <span class="speaker"></span>
+            </div>
+            <div class="screen">
+              <img
+                src="./img/showcase.jpg"
+                alt="نمایش برنامه حسابداری مانگرو"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- متن قهرمان -->
+        <div class="hero-text">
+          <h1 data-lang="hero_title">
+            حسابداری <span>مانگرو</span> در گوشی شما
+          </h1>
+          <p data-lang="hero_desc">
+            همه امکانات حسابداری حرفه‌ای را به ساده‌ترین شکل ممکن در موبایل خود
+            تجربه کنید.
+          </p>
+          <a
+            href="https://cafebazaar.ir/app/ir.power.excel.hesabdartest"
+            target="_blank"
+            class="btn"
+            data-lang="hero_btn"
+            >دانلود اپلیکیشن</a
+          >
+        </div>
+      </section>
+
+      <!-- ========== ویژگی‌های مانگرو ========== -->
+      <section id="features" class="features">
+        <div class="feature-item">
+          <span class="emoji-big">📊</span>
+          <h3 data-lang="feature1_title">گزارشات دقیق</h3>
+          <p data-lang="feature1_desc">
+            دسترسی به تمام گزارشات مالی، نقدی، خرید و فروش به صورت آنی.
+          </p>
+        </div>
+        <div class="feature-item">
+          <span class="emoji-big">⏱️</span>
+          <h3 data-lang="feature2_title">مدیریت زمان</h3>
+          <p data-lang="feature2_desc">
+            مهلت اشخاص، چک‌های پرداختی و دریافتی با هشدارهای هوشمند.
+          </p>
+        </div>
+        <div class="feature-item">
+          <span class="emoji-big">🔐</span>
+          <h3 data-lang="feature3_title">امنیت بالا</h3>
+          <p data-lang="feature3_desc">
+            داده‌های شما با بالاترین استانداردهای امنیتی محافظت می‌شوند.
+          </p>
+        </div>
+        <div class="feature-item">
+          <span class="emoji-big">📱</span>
+          <h3 data-lang="feature4_title">دسترسی آسان</h3>
+          <p data-lang="feature4_desc">
+            همه امکانات در گوشی شما، هر زمان و هر مکان.
+          </p>
+        </div>
+      </section>
+
+      <!-- ========== گالری اسلایدر با Swiper ========== -->
+      <section id="gallery-carousel" class="gallery-carousel">
+        <div class="container">
+          <h2 class="gallery-title" data-lang="gallery_title">تصاویر برنامه</h2>
+          <!-- کانتینر اصلی Swiper -->
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide" data-image="./img/slide1.webp">
+                <img src="./img/slide1.webp" alt="slide_1" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide2.webp">
+                <img src="./img/slide2.webp" alt="slide_2" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide3.webp">
+                <img src="./img/slide3.webp" alt="slide_3" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide4.webp">
+                <img src="./img/slide4.webp" alt="slide_4" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide5.webp">
+                <img src="./img/slide5.webp" alt="slide_5" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide6.webp">
+                <img src="./img/slide6.webp" alt="slide_6" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide7.webp">
+                <img src="./img/slide7.webp" alt="slide_7" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide8.webp">
+                <img src="./img/slide8.webp" alt="slide_8" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide9.webp">
+                <img src="./img/slide9.webp" alt="slide_9" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide10.webp">
+                <img src="./img/slide10.webp" alt="slide_10" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide11.webp">
+                <img src="./img/slide11.webp" alt="slide_11" />
+              </div>
+              <div class="swiper-slide" data-image="./img/slide12.webp">
+                <img src="./img/slide12.webp" alt="slide_12" />
+              </div>
+
+              <div class="swiper-slide" data-image="./img/slide13.webp">
+                <img src="./img/slide13.webp" alt="slide_13" />
+              </div>
+
+              <div class="swiper-slide" data-image="./img/slide14.webp">
+                <img src="./img/slide14.webp" alt="slide_14" />
+              </div>
+
+              <div class="swiper-slide" data-image="./img/slide15.webp">
+                <img src="./img/slide15.webp" alt="slide_15" />
+              </div>
+            </div>
+            <!-- دکمه‌های قبلی و بعدی -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+            <!-- صفحه‌بندی (نقاط پایین) -->
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== بخش ویدیو ========== -->
+      <section id="video-section" class="video-section">
+        <div class="container">
+          <h2 class="video-title" data-lang="video_title">
+            🎥 ویدیوی معرفی نرم‌افزار
+          </h2>
+          <div class="video-wrapper">
+            <video controls poster="./img/video_thumb.png">
+              <source src="./video/mangroveapp.mp4" type="video/mp4" />
+              مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+            </video>
+          </div>
+          <div class="video-btn-wrapper">
+            <a
+              href="./page/learning.html"
+              class="btn-video"
+              data-lang="video_btn"
+              >سایر آموزش‌ها</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== بخش دانلود ========== -->
+      <section id="download-section" class="download-section">
+        <div class="container">
+          <h2 class="download-title" data-lang="download_title">
+            📲 همین الان دانلود کن!
+          </h2>
+          <div class="download-grid">
+            <a href="#" class="download-item">
+              <i class="fab fa-apple icon"></i>
+              <span class="label" data-lang="download_ios">نسخه آیفون</span>
+              <span class="sub-label" data-lang="download_ios_sub"
+                >(به زودی)</span
+              >
+            </a>
+            <a
+              href="https://cafebazaar.ir/app/ir.power.excel.hesabdartest"
+              target="_blank"
+              class="download-item"
+            >
+              <i class="fab fa-android icon"></i>
+              <span class="label" data-lang="download_android"
+                >نسخه اندروید</span
+              >
+              <span class="sub-label" data-lang="download_android_sub"
+                >دانلود از بازار</span
+              >
+            </a>
+            <a href="#" class="download-item">
+              <i class="fas fa-globe icon"></i>
+              <span class="label" data-lang="download_pwa">نسخه PWA</span>
+              <span class="sub-label" data-lang="download_pwa_sub"
+                >(به زودی)</span
+              >
+            </a>
+            <!-- <a href="#" class="download-item">
+                        <i class="fas fa-video icon"></i>
+                        <span class="label">نسخه ویدئو</span>
+                        <span class="sub-label">آموزش تصویری</span>
+                    </a> -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== بخش نرم‌افزار اکسل ========== -->
+      <section id="excel-section" class="excel-section">
+        <div class="container">
+          <h2 class="excel-title" data-lang="excel_title">نرم افزار اکسل</h2>
+          <div class="excel-grid">
+            <a href="./page/accounting.html" class="excel-item">
+              <i class="fas fa-file-excel icon"></i>
+              <span class="label" data-lang="excel_accounting"
+                >حسابداری با اکسل</span
+              >
+              <span class="btn-excel" data-lang="excel_btn">توضیحات</span>
+            </a>
+            <a href="./page/storage.html" class="excel-item">
+              <i class="fas fa-warehouse icon"></i>
+              <span class="label" data-lang="excel_storage">انبار با اکسل</span>
+              <span class="btn-excel" data-lang="excel_btn">توضیحات</span>
+            </a>
+            <a href="./page/barcode.html" class="excel-item">
+              <i class="fas fa-barcode icon"></i>
+              <span class="label" data-lang="excel_barcode">بارکد با اکسل</span>
+              <span class="btn-excel" data-lang="excel_btn">توضیحات</span>
+            </a>
+            <a href="./page/banking.html" class="excel-item">
+              <i class="fas fa-university icon"></i>
+              <span class="label" data-lang="excel_banking"
+                >مغایرت بانکی با اکسل</span
+              >
+              <span class="btn-excel" data-lang="excel_btn">توضیحات</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== بخش تماس با ما ========== -->
+      <section id="contact-section" class="contact-section">
+        <div class="container">
+          <h2 class="contact-title" data-lang="contact_title">📞 تماس با ما</h2>
+          <div class="contact-wrapper">
+            <!-- اطلاعات تماس -->
+            <div class="contact-info">
+              <div class="contact-info-item">
+                <div class="icon"><i class="fas fa-phone"></i></div>
+                <div class="text">
+                  <strong data-lang="contact_phone">شماره تماس</strong>
+                  <small>09171570161</small>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="icon"><i class="fas fa-envelope"></i></div>
+                <div class="text">
+                  <strong data-lang="contact_email">آدرس ایمیل</strong>
+                  <small>ghasem76@gmail.com</small>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                <div class="text">
+                  <strong data-lang="contact_address">آدرس</strong>
+                  <small data-lang="contact_address_value"
+                    >هرمزگان - بندرعباس</small
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- فرم تماس -->
+            <form class="contact-form" action="./php/contact.php" method="POST">
+              <div class="form-group">
+                <label for="contactName" data-lang="contact_name_label"
+                  >نام و نام خانوادگی</label
+                >
+                <input
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  placeholder="نام خود را وارد کنید..."
+                  required
+                  data-lang-placeholder="contact_name_placeholder"
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactPhone" data-lang="contact_phone_label"
+                  >شماره تماس</label
+                >
+                <input
+                  type="tel"
+                  id="contactPhone"
+                  name="phone"
+                  placeholder="شماره تماس خود را وارد کنید..."
+                  required
+                  data-lang-placeholder="contact_phone_placeholder"
+                />
+              </div>
+              <div class="form-group">
+                <label for="contactMessage" data-lang="contact_message_label"
+                  >متن پیام</label
+                >
+                <textarea
+                  id="contactMessage"
+                  name="message"
+                  placeholder="نظر یا پیام خود را بنویسید..."
+                  required
+                  data-lang-placeholder="contact_message_placeholder"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="btn-submit"
+                id="submitBtn"
+                data-lang="contact_btn"
+              >
+                ارسال پیام
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========== لایت‌باکس (Overlay برای نمایش بزرگ تصویر) ========== -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+      <button class="lightbox-close" id="lightboxClose">&times;</button>
+      <img
+        class="lightbox-content"
+        id="lightboxImage"
+        src=""
+        alt="تصویر بزرگ‌شده"
+      />
+    </div>
+
+    <!-- ========== فوتر (پاصفحه) ========== -->
+    <footer>
+      <div class="container">
+        <p>
+          © <?php echo date("Y"); ?> -
+          <span data-lang="footer_text"
+            >تمامی حقوق برای نرم‌افزار حسابداری مانگرو محفوظ است.</span
+          >
+        </p>
+      </div>
+    </footer>
+    <script src="./js/swiper.js"></script>
+    <script src="./js/language.js"></script>
+    <script src="./js/lang.js"></script>
+    <script src="./js/app.js"></script>
+  </body>
+</html>

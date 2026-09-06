@@ -1,0 +1,971 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ویدیوهای آموزشی - نرم‌افزار حسابداری مانگرو</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../style/swiper.css" />
+    <link rel="stylesheet" href="../style/style.css" />
+
+    <style>
+      /* ===== استایل‌های اختصاصی صفحه آموزش ===== */
+
+      /* بنر بالای صفحه */
+      .learning-hero {
+        background: linear-gradient(
+          135deg,
+          #1a1a2e 0%,
+          #16213e 50%,
+          #0f3460 100%
+        );
+        padding: 80px 0 60px;
+        text-align: center;
+        border-radius: 0 0 40px 40px;
+        margin-bottom: 40px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .learning-hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -20%;
+        width: 60%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 152, 0, 0.08) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .learning-hero::after {
+        content: "";
+        position: absolute;
+        bottom: -30%;
+        left: -10%;
+        width: 50%;
+        height: 150%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 152, 0, 0.05) 0%,
+          transparent 60%
+        );
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .learning-hero h1 {
+        font-size: 3rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+      }
+
+      .learning-hero h1 span {
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .learning-hero p {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.7);
+        max-width: 600px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .learning-hero .icon-big {
+        font-size: 4rem;
+        display: block;
+        margin-bottom: 15px;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* بخش ویدیوهای آموزشی */
+      .learning-section {
+        padding: 20px 0 60px;
+      }
+
+      .learning-section .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .learning-section .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        margin: 10px auto 0;
+        border-radius: 4px;
+      }
+
+      /* گرید ویدیوها - 2 ستون */
+      .video-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .video-card {
+        background: #ffffff;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+        border: 1px solid #f1f3f5;
+        transition: all 0.4s ease;
+      }
+
+      .video-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.1);
+        border-color: rgba(255, 152, 0, 0.2);
+      }
+
+      .video-card .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      .video-card .video-wrapper {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #1a1a1a;
+        overflow: hidden;
+      }
+
+      .video-card .video-wrapper video {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .video-card .video-wrapper .play-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+        cursor: pointer;
+      }
+
+      .video-card .video-wrapper .play-overlay:hover {
+        background: rgba(0, 0, 0, 0.15);
+      }
+
+      .video-card .video-wrapper .play-overlay i {
+        font-size: 4rem;
+        color: #fff;
+        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        transition: 0.3s;
+      }
+
+      .video-card .video-wrapper .play-overlay:hover i {
+        transform: scale(1.1);
+        color: #ff9800;
+      }
+
+      .video-card .video-info {
+        padding: 20px 24px 24px;
+      }
+
+      .video-card .video-info .badge {
+        display: inline-block;
+        background: rgba(255, 152, 0, 0.12);
+        color: #ff9800;
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 4px 14px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+      }
+
+      .video-card .video-info h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+
+      .video-card .video-info p {
+        font-size: 0.9rem;
+        color: #6b7280;
+        line-height: 1.6;
+        margin-bottom: 14px;
+      }
+
+      .video-card .video-info .meta {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        font-size: 0.8rem;
+        color: #9ca3af;
+      }
+
+      .video-card .video-info .meta i {
+        color: #ff9800;
+        margin-left: 4px;
+      }
+
+      .video-card .video-info .meta span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      /* ===== بخش لیست دوره‌های آموزشی (جدید) ===== */
+      .courses-section {
+        padding: 40px 0 60px;
+        background: transparent;
+      }
+
+      .courses-section .section-title {
+        text-align: center;
+        font-size: 2rem;
+        font-weight: 700;
+        color: #1f2937;
+        margin-bottom: 40px;
+        position: relative;
+      }
+
+      .courses-section .section-title::after {
+        content: "";
+        display: block;
+        width: 80px;
+        height: 4px;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        margin: 10px auto 0;
+        border-radius: 4px;
+      }
+
+      .courses-list {
+        max-width: 1000px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .course-item {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: #ffffff;
+        padding: 18px 24px;
+        border-radius: 18px;
+        border: 1px solid #f1f3f5;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .course-item:hover {
+        transform: translateX(-6px);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        border-color: rgba(255, 152, 0, 0.2);
+      }
+
+      .course-item .course-number {
+        flex-shrink: 0;
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #ff9800, #fbbf24);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 800;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
+
+      .course-item:hover .course-number {
+        transform: scale(1.05);
+      }
+
+      .course-item .course-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .course-item .course-info .course-title {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #1f2937;
+        line-height: 1.4;
+      }
+
+      .course-item .course-info .course-meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        font-size: 0.8rem;
+        color: #6b7280;
+        flex-wrap: wrap;
+      }
+
+      .course-item .course-info .course-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .course-item .course-info .course-meta i {
+        color: #ff9800;
+        font-size: 0.85rem;
+      }
+
+      .course-item .course-arrow {
+        flex-shrink: 0;
+        color: #9ca3af;
+        font-size: 1.2rem;
+        transition: 0.3s;
+      }
+
+      .course-item:hover .course-arrow {
+        color: #ff9800;
+        transform: translateX(-4px);
+      }
+
+      /* ============================================================ */
+      /* ===== ریسپانسیو ===== */
+      /* ============================================================ */
+
+      @media (max-width: 992px) {
+        .learning-hero h1 {
+          font-size: 2.4rem;
+        }
+        .learning-hero {
+          padding: 60px 0 40px;
+        }
+      }
+
+      @media (max-width: 850px) {
+        .video-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          padding: 0 10px;
+        }
+
+        .learning-hero h1 {
+          font-size: 2rem;
+        }
+
+        .learning-hero p {
+          font-size: 1rem;
+          padding: 0 20px;
+        }
+
+        .video-card .video-info {
+          padding: 16px 18px 20px;
+        }
+
+        .video-card .video-info h3 {
+          font-size: 1rem;
+        }
+
+        .course-item {
+          padding: 14px 18px;
+          gap: 14px;
+        }
+
+        .course-item .course-number {
+          width: 40px;
+          height: 40px;
+          font-size: 1rem;
+        }
+
+        .course-item .course-info .course-title {
+          font-size: 0.95rem;
+        }
+
+        .course-item .course-info .course-meta {
+          font-size: 0.75rem;
+          gap: 14px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .video-grid {
+          grid-template-columns: 1fr;
+          max-width: 450px;
+          gap: 25px;
+        }
+
+        .learning-hero h1 {
+          font-size: 1.6rem;
+        }
+
+        .learning-hero .icon-big {
+          font-size: 3rem;
+        }
+
+        .learning-hero {
+          padding: 40px 0 30px;
+          border-radius: 0 0 28px 28px;
+        }
+
+        .learning-section .section-title,
+        .courses-section .section-title {
+          font-size: 1.5rem;
+        }
+
+        .video-card .video-wrapper .play-overlay i {
+          font-size: 3rem;
+        }
+
+        .video-card .video-info {
+          padding: 14px 16px 18px;
+        }
+
+        .video-card .video-info h3 {
+          font-size: 0.95rem;
+        }
+
+        .video-card .video-info p {
+          font-size: 0.85rem;
+        }
+
+        .video-card .video-info .meta {
+          font-size: 0.75rem;
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+
+        .course-item {
+          padding: 12px 14px;
+          gap: 12px;
+          border-radius: 14px;
+        }
+
+        .course-item .course-number {
+          width: 34px;
+          height: 34px;
+          font-size: 0.85rem;
+        }
+
+        .course-item .course-info .course-title {
+          font-size: 0.9rem;
+        }
+
+        .course-item .course-info .course-meta {
+          font-size: 0.7rem;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .course-item .course-arrow {
+          font-size: 1rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .learning-hero h1 {
+          font-size: 1.3rem;
+        }
+
+        .learning-hero p {
+          font-size: 0.85rem;
+        }
+
+        .learning-section .section-title,
+        .courses-section .section-title {
+          font-size: 1.2rem;
+        }
+
+        .video-grid {
+          gap: 18px;
+          padding: 0 5px;
+        }
+
+        .video-card .video-info {
+          padding: 12px 14px 16px;
+        }
+
+        .video-card .video-info h3 {
+          font-size: 0.85rem;
+        }
+
+        .course-item {
+          padding: 10px 12px;
+          gap: 10px;
+          border-radius: 12px;
+        }
+
+        .course-item .course-number {
+          width: 30px;
+          height: 30px;
+          font-size: 0.75rem;
+        }
+
+        .course-item .course-info .course-title {
+          font-size: 0.8rem;
+        }
+
+        .course-item .course-info .course-meta {
+          font-size: 0.65rem;
+          gap: 8px;
+        }
+
+        .course-item .course-arrow {
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ========== هدر (سربرگ) ========== -->
+    <header>
+      <div class="container header-flex">
+        <button class="hamburger" id="hamburgerBtn" aria-label="منو">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav" id="navMenu">
+          <a href="../index.html">خانه</a>
+          <a href="../index.html#features">امکانات</a>
+          <a href="../index.html#gallery-carousel">تصاویر</a>
+          <a href="../index.html#video-section">ویدیو</a>
+          <a href="../index.html#download-section">دانلود</a>
+          <a href="../index.html#excel-section">نرم‌افزار اکسل</a>
+          <a href="../index.html#contact-section">تماس با ما</a>
+        </div>
+
+        <div class="logo">
+          <a href="../index.html">
+            <img src="../img/logo.webp" alt="لوگو مانگرو" />
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- ========== بنر اصلی صفحه آموزش ========== -->
+    <section class="learning-hero">
+      <div class="container">
+        <span class="icon-big">🎬</span>
+        <h1>ویدیوهای <span>آموزشی</span></h1>
+        <p>
+          با مشاهده ویدیوهای آموزشی، به‌راحتی با نرم‌افزار حسابداری مانگرو آشنا
+          شوید و از تمام امکانات آن استفاده کنید.
+        </p>
+      </div>
+    </section>
+
+    <!-- ========== بخش ویدیوهای آموزشی ========== -->
+    <section class="learning-section">
+      <div class="container">
+        <h2 class="section-title">📺 ویدیوهای آموزشی</h2>
+
+        <div class="video-grid">
+          <!-- کارت ویدیو ۱ -->
+           <div class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.aparat.com/video/video/embed/videohash/v180rbv/vt/frame?titleShow=true"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+            <div class="video-info">
+              <span class="badge">آموزش تخصصی</span>
+              <h3>آموزش سند حسابداری در نرم افزار مانگرو</h3>
+              <p>
+                نحوه ایجاد سند حسابداری در نرم افزار حسابداری مانگرو
+              </p>
+            </div>
+          </div>
+          <!-- <div class="video-card">
+            <div class="video-wrapper">
+              <video controls poster="../img/video_thumb.png">
+                <source src="../video/mangro_start_new.mp4" type="video/mp4" />
+                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+              </video>
+            </div>
+            <div class="video-info">
+              <span class="badge">آموزش مقدماتی</span>
+              <h3>آشنایی با محیط نرم‌افزار حسابداری مانگرو</h3>
+              <p>
+                در این ویدیو با محیط اصلی نرم‌افزار، منوها و بخش‌های مختلف آشنا
+                می‌شوید.
+              </p>
+              <div class="meta">
+                            <span><i class="fas fa-clock"></i> ۱۲:۳۴</span>
+                            <span><i class="fas fa-eye"></i> ۱,۲۵۰ بازدید</span>
+                        </div>
+            </div>
+          </div> -->
+
+          <!-- کارت ویدیو ۲ -->
+           <div class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.aparat.com/video/video/embed/videohash/h8577e0/vt/frame?titleShow=true"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+            <div class="video-info">
+              <span class="badge">آموزش تخصصی</span>
+              <h3>آموزش شروع به کار و تعریف حسابها در نرم افزار مانگرو</h3>
+              <p>
+                آموزش تعریف حسابها در نرم افزار مانگرو
+              </p>
+            </div>
+          </div>
+          <!-- <div class="video-card">
+            <div class="video-wrapper">
+              <video controls poster="../img/video_thumb.png">
+                <source src="../video/mangroveapp.mp4" type="video/mp4" />
+                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+              </video>
+            </div>
+            <div class="video-info">
+              <span class="badge">آموزش پیشرفته</span>
+              <h3>ثبت اسناد حسابداری و مدیریت حساب‌ها</h3>
+              <p>
+                آموزش کامل ثبت اسناد حسابداری، مدیریت حساب‌های بانکی و ثبت
+                تراکنش‌های مالی.
+              </p>
+            </div>
+          </div> -->
+
+          <!-- کارت ویدیو ۳ -->
+          <div class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.aparat.com/video/video/embed/videohash/cui4i2u/vt/frame?titleShow=true"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+            <div class="video-info">
+              <span class="badge">آموزش تخصصی</span>
+              <h3>فاکتور تولید در  نرم افزار مانگرو</h3>
+              <p>
+                نحوه ایجاد فاکتور تولید در نرم افزار حسابداری مانگرو
+              </p>
+            </div>
+          </div>
+
+          <!-- کارت ویدیو ۴ -->
+          <div class="video-card">
+            <div class="video-wrapper">
+              <iframe
+                src="https://www.aparat.com/video/video/embed/videohash/xwxmtlj/vt/frame?titleShow=true"
+                allowfullscreen
+              >
+              </iframe>
+            </div>
+            <div class="video-info">
+              <span class="badge">آموزش تخصصی</span>
+              <h3>گزارش‌گیری و تحلیل داده‌های مالی</h3>
+              <p>
+                آموزش تهیه گزارشات مالی، تحلیل سود و زیان و مدیریت دارایی‌ها با
+                نرم‌افزار مانگرو.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== بخش لیست دوره‌های آموزشی ========== -->
+    <section class="courses-section">
+      <div class="container">
+        <h2 class="section-title">📚 همه دوره‌های آموزشی</h2>
+
+        <div class="courses-list">
+          <!-- دوره ۱ -->
+          <a
+            href="https://www.aparat.com/v/tvqzf35"
+            class="course-item"
+            target="_blank"
+          >
+            <span class="course-number">۱</span>
+            <div class="course-info">
+              <span class="course-title"
+                >آموزش ایجاد دوره مالی در حسابداری مانگرو</span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+
+          <!-- دوره ۲ -->
+          <a
+            href="https://www.aparat.com/v/v180rbv"
+            class="course-item"
+            target="_blank"
+          >
+            <span class="course-number">۲</span>
+            <div class="course-info">
+              <span class="course-title">آموزش سند نقدی </span>
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+
+          <!-- دوره ۳ -->
+          <a href="https://www.aparat.com/v/d188kfc" class="course-item" target="_blank">
+            <span class="course-number">۳</span>
+            <div class="course-info">
+              <span class="course-title"
+                >آموزش فعالسازی پیامک بانکی حسابداری مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+
+          <!-- دوره ۴ -->
+          <a href="https://www.aparat.com/v/x937f92" class="course-item" target="_blank">
+            <span class="course-number">۴</span>
+            <div class="course-info">
+              <span class="course-title"
+                >اموزش حسابهای بانکی و چک در حسابداری مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+
+          <!-- دوره ۵ -->
+          <a href="https://www.aparat.com/v/xtv23wd" class="course-item" target="_blank">
+            <span class="course-number">۵</span>
+            <div class="course-info">
+              <span class="course-title"
+                >پنهان کردن عکس های مانگرو در گالری موبایل
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+
+          <!-- دوره ۶ -->
+          <a href="https://www.aparat.com/v/qdwj44f" class="course-item" target="_blank">
+            <span class="course-number">۶</span>
+            <div class="course-info">
+              <span class="course-title"
+                >پشتیبان گیری در مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۷ -->
+          <a href="https://www.aparat.com/v/opa8b06" class="course-item" target="_blank">
+            <span class="course-number">۷</span>
+            <div class="course-info">
+              <span class="course-title"
+                >پیش نمایش پی دی اف مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۸ -->
+          <a href="https://www.aparat.com/v/BnWQ9" class="course-item" target="_blank">
+            <span class="course-number">۸</span>
+            <div class="course-info">
+              <span class="course-title"
+                >اموزش امکانات و تنظیمات حسابداری مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۹ -->
+          <a href="https://www.aparat.com/v/x94hrdu" class="course-item" target="_blank">
+            <span class="course-number">۹</span>
+            <div class="course-info">
+              <span class="course-title"
+                >اموزش قسمت سرمایه و یاداشت حسابداری مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۰ -->
+          <a href="https://www.aparat.com/v/9s7af" class="course-item" target="_blank">
+            <span class="course-number">۱۰</span>
+            <div class="course-info">
+              <span class="course-title"
+                >ترفند استفاده از دو واحد پولی در حسابداری مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۱ -->
+          <a href="https://www.aparat.com/v/j12t81r" class="course-item" target="_blank">
+            <span class="course-number">۱۱</span>
+            <div class="course-info">
+              <span class="course-title"
+                >اموزش انتقال بکاپ مانگرو به کامپیوتر
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۲ -->
+          <a href="https://www.aparat.com/v/m41wd7s" class="course-item" target="_blank">
+            <span class="course-number">۱۲</span>
+            <div class="course-info">
+              <span class="course-title"
+                >نصب برنامه اندروید حسابداری مانگرو در ویندوز 11
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۳ -->
+          <a href="https://www.aparat.com/v/c50r299" class="course-item" target="_blank">
+            <span class="course-number">۱۳</span>
+            <div class="course-info">
+              <span class="course-title"
+                >حسابداری مانگرو قسمت سرمایه
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۴ -->
+          <a href="https://www.aparat.com/v/e2141pe" class="course-item" target="_blank">
+            <span class="course-number">۱۴</span>
+            <div class="course-info">
+              <span class="course-title"
+                >اموزش بکاپ گیری در گوگل درایو حسابداری مانگرو
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۵ -->
+          <a href="https://www.aparat.com/v/s257kv4" class="course-item" target="_blank">
+            <span class="course-number">۱۵</span>
+            <div class="course-info">
+              <span class="course-title"
+                >اموزش حسابداری مانگرو قسمت اشخاص
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+          <!-- دوره ۱۶ -->
+          <a href="https://www.aparat.com/v/w34j538" class="course-item" target="_blank">
+            <span class="course-number">۱۶</span>
+            <div class="course-info">
+              <span class="course-title"
+                >حسابداری مانگرو کالا
+                </span
+              >
+            </div>
+            <span class="course-arrow"
+              ><i class="fas fa-chevron-left"></i
+            ></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== فوتر (پاصفحه) ========== -->
+    <footer>
+      <div class="container">
+        <p>
+          © <?php echo date("Y"); ?> - تمامی حقوق برای نرم‌افزار حسابداری مانگرو
+          محفوظ است.
+        </p>
+      </div>
+    </footer>
+
+    <!-- ========== اسکریپت‌ها ========== -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ===== منوی همبرگری =====
+        var hamburger = document.getElementById("hamburgerBtn");
+        var navMenu = document.getElementById("navMenu");
+
+        if (hamburger && navMenu) {
+          hamburger.addEventListener("click", function () {
+            this.classList.toggle("active");
+            navMenu.classList.toggle("open");
+          });
+
+          navMenu.querySelectorAll("a").forEach(function (link) {
+            link.addEventListener("click", function () {
+              hamburger.classList.remove("active");
+              navMenu.classList.remove("open");
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
