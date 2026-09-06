@@ -17,7 +17,11 @@
       excel_sub: "مجموعه نرم‌افزارهای حسابداری، انبار و فروش مانگرو بر پایه اکسل",
       hero_t1: "امن و مطمئن",
       hero_t2: "پشتیبانی کامل",
-      hero_t3: "به‌روزرسانی رایگان"
+      hero_t3: "به‌روزرسانی رایگان",
+      video_caption: "معرفی کوتاه اپلیکیشن مانگرو",
+      video_p1: "شروع سریع",
+      video_p2: "آموزش گام‌به‌گام",
+      video_p3: "کاملاً موبایلی"
     },
     en: {
       features_kicker: "Mangro Features",
@@ -31,7 +35,11 @@
       excel_sub: "Mangro accounting, warehouse & sales software built on Excel",
       hero_t1: "Safe & Secure",
       hero_t2: "Full Support",
-      hero_t3: "Free Updates"
+      hero_t3: "Free Updates",
+      video_caption: "A quick tour of the Mangro app",
+      video_p1: "Quick Start",
+      video_p2: "Step by Step",
+      video_p3: "Mobile First"
     },
     ar: {
       features_kicker: "مميزات مانجرو",
@@ -45,7 +53,11 @@
       excel_sub: "برمجيات المحاسبة والمخازن والمبيعات من مانجرو المبنية على إكسل",
       hero_t1: "آمن وموثوق",
       hero_t2: "دعم كامل",
-      hero_t3: "تحديثات مجانية"
+      hero_t3: "تحديثات مجانية",
+      video_caption: "جولة سريعة في تطبيق مانجرو",
+      video_p1: "بداية سريعة",
+      video_p2: "شرح خطوة بخطوة",
+      video_p3: "متوافق مع الجوال"
     }
   };
   try {

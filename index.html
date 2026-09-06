@@ -10,8 +10,8 @@
     />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="./style/swiper.css?v=6" />
-    <link rel="stylesheet" href="./style/style.css?v=6" />
+    <link rel="stylesheet" href="./style/swiper.css?v=7" />
+    <link rel="stylesheet" href="./style/style.css?v=7" />
     <link rel="preload" as="image" href="./img/showcase.webp" fetchpriority="high" />
     <link rel="preload" as="image" href="./img/slide1.webp" />
     <link rel="icon" type="image/webp" href="./img/logo.webp" />
@@ -174,12 +174,30 @@
           <div class="section-head">
             <h2 class="section-title-grad" data-lang="video_title" data-cms="home.videoTitle">ویدیوی معرفی نرم‌افزار</h2>
           </div>
-          <div class="video-wrapper">
-            <video controls preload="metadata" poster="./img/video_thumb.webp" playsinline>
-              <source src="./video/mangroveapp.mp4" type="video/mp4" />
-              مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-            </video>
+          <div class="video-stage">
+            <div class="video-wrapper" id="introVideoWrap">
+              <video id="introVideo" preload="metadata" poster="./img/video_thumb.webp" playsinline>
+                <source src="./video/mangroveapp.mp4" type="video/mp4" />
+                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+              </video>
+              <button class="video-play" id="introPlayBtn" aria-label="پخش ویدیو">
+                <span class="ring"></span>
+                <span class="ring ring-2"></span>
+                <i class="fas fa-play"></i>
+              </button>
+              <div class="video-caption">
+                <span class="live-dot"></span>
+                <span data-lang="video_caption">معرفی کوتاه اپلیکیشن مانگرو</span>
+              </div>
+            </div>
           </div>
+
+          <div class="video-points">
+            <span class="v-chip"><i class="fas fa-bolt"></i> <span data-lang="video_p1">شروع سریع</span></span>
+            <span class="v-chip"><i class="fas fa-list-check"></i> <span data-lang="video_p2">آموزش گام‌به‌گام</span></span>
+            <span class="v-chip"><i class="fas fa-mobile-screen"></i> <span data-lang="video_p3">کاملاً موبایلی</span></span>
+          </div>
+
           <div class="video-btn-wrapper">
             <a href="./page/learning.html" class="btn btn-primary btn-soft">
               <i class="fas fa-graduation-cap"></i>
@@ -323,10 +341,10 @@
       </div>
     </footer>
 
-    <script defer src="./js/swiper.js?v=6"></script>
-    <script defer src="./js/cms.js?v=6"></script>
-    <script defer src="./js/language.js?v=6"></script>
-    <script defer src="./js/lang.js?v=6"></script>
-    <script defer src="./js/app.js?v=6"></script>
+    <script defer src="./js/swiper.js?v=7"></script>
+    <script defer src="./js/cms.js?v=7"></script>
+    <script defer src="./js/language.js?v=7"></script>
+    <script defer src="./js/lang.js?v=7"></script>
+    <script defer src="./js/app.js?v=7"></script>
   </body>
 </html>

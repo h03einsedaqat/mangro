@@ -280,3 +280,57 @@ document.addEventListener("DOMContentLoaded", function () {
 window.addEventListener("mangro:content-ready", function () {
   initGallery();
 });
+
+/* ============ ویدیوی معرفی: دکمه‌ی پخش سفارشی ============ */
+(function () {
+  function initIntroVideo() {
+    var wrap = document.getElementById("introVideoWrap");
+    var video = document.getElementById("introVideo");
+    var btn = document.getElementById("introPlayBtn");
+    if (!wrap || !video || wrap.dataset.introInit) return;
+    wrap.dataset.introInit = "1";
+
+    function play() {
+      video.setAttribute("controls", "controls");
+      wrap.classList.add("is-playing");
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    }
+
+    if (btn) btn.addEventListener("click", play);
+
+    // کلیک روی خود پوستر هم پخش کند (قبل از شروع)
+    video.addEventListener("click", function () {
+      if (!wrap.classList.contains("is-playing")) play();
+    });
+
+    video.addEventListener("play", function () { wrap.classList.add("is-playing"); });
+    video.addEventListener("pause", function () {
+      if (video.currentTime === 0) wrap.classList.remove("is-playing");
+    });
+    video.addEventListener("ended", function () {
+      wrap.classList.remove("is-playing");
+      video.removeAttribute("controls");
+      video.currentTime = 0;
+    });
+
+    // وقتی بخش ویدیو نزدیک شد، فایل را از قبل آماده کن (لود سریع‌تر)
+    if ("IntersectionObserver" in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) {
+            video.setAttribute("preload", "auto");
+            io.disconnect();
+          }
+        });
+      }, { rootMargin: "300px" });
+      io.observe(wrap);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initIntroVideo);
+  } else {
+    initIntroVideo();
+  }
+})();

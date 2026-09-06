@@ -1095,20 +1095,60 @@ header {
 /* ================================================================
    ویدیو
    ================================================================ */
+/* صحنه‌ی ویدیو: هاله و قاب شیشه‌ای */
+.video-stage {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 14px;
+  border-radius: 32px;
+  background: linear-gradient(150deg, rgba(255, 122, 24, 0.18), rgba(255, 255, 255, 0.04) 45%, rgba(90, 150, 255, 0.14));
+  box-shadow: 0 30px 70px rgba(8, 16, 30, 0.18);
+  isolation: isolate;
+}
+.video-stage::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  width: 78%;
+  height: 80%;
+  transform: translateX(-50%);
+  background:
+    radial-gradient(closest-side at 68% 30%, rgba(255, 122, 24, 0.34), rgba(255, 122, 24, 0) 72%),
+    radial-gradient(closest-side at 28% 74%, rgba(90, 150, 255, 0.24), rgba(90, 150, 255, 0) 74%);
+  filter: blur(28px);
+  z-index: -1;
+  pointer-events: none;
+  animation: video-aura 9s ease-in-out infinite;
+}
+@keyframes video-aura {
+  0%, 100% { opacity: 0.75; transform: translateX(-50%) scale(1); }
+  50% { opacity: 1; transform: translateX(-50%) scale(1.06); }
+}
+
 .video-wrapper {
-  max-width: 860px;
+  position: relative;
+  width: 100%;
   margin: 0 auto;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
   background: #05070c;
   aspect-ratio: 16 / 9;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border: 1px solid rgba(255, 122, 24, 0.3);
-  transition: 0.4s;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 26px 60px rgba(5, 10, 20, 0.45),
+    0 0 0 1px rgba(255, 122, 24, 0.16) inset;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.3, 1), box-shadow 0.45s ease;
+}
+.video-stage:hover .video-wrapper {
+  transform: translateY(-4px);
+  box-shadow:
+    0 34px 74px rgba(5, 10, 20, 0.52),
+    0 0 0 1px rgba(255, 122, 24, 0.32) inset;
 }
 .video-wrapper video,
 .video-wrapper iframe {
@@ -1118,9 +1158,144 @@ header {
   display: block;
   object-fit: contain;
 }
+/* تیرگی ملایم روی پوستر تا دکمه‌ی پخش خوانا باشد */
+.video-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(3, 8, 16, 0.18) 0%, rgba(3, 8, 16, 0) 40%, rgba(3, 8, 16, 0.55) 100%);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+.video-wrapper.is-playing::after { opacity: 0; }
+
+/* دکمه‌ی پخش سفارشی با موج نور */
+.video-play {
+  position: absolute;
+  z-index: 3;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+  background: linear-gradient(135deg, var(--brand-2), var(--brand));
+  box-shadow: 0 18px 40px rgba(255, 122, 24, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.25) inset;
+  transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.3, 1), opacity 0.35s ease, visibility 0.35s;
+}
+.video-play i {
+  margin-inline-start: 4px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.25));
+}
+.video-play:hover { transform: scale(1.09); }
+.video-play:active { transform: scale(0.97); }
+.video-play .ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 176, 90, 0.7);
+  animation: play-ripple 2.6s ease-out infinite;
+  pointer-events: none;
+}
+.video-play .ring-2 { animation-delay: 1.3s; }
+@keyframes play-ripple {
+  0% { transform: scale(1); opacity: 0.75; }
+  100% { transform: scale(1.85); opacity: 0; }
+}
+.video-wrapper.is-playing .video-play {
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.7);
+}
+
+/* برچسب پایین ویدیو */
+.video-caption {
+  position: absolute;
+  bottom: 16px;
+  inset-inline-start: 18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 15px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #f3f7ff;
+  background: rgba(10, 18, 32, 0.55);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.video-wrapper.is-playing .video-caption {
+  opacity: 0;
+  transform: translateY(8px);
+}
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--brand);
+  box-shadow: 0 0 0 0 rgba(255, 122, 24, 0.6);
+  animation: live-pulse 2s ease-out infinite;
+}
+@keyframes live-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(255, 122, 24, 0.55); }
+  70% { box-shadow: 0 0 0 9px rgba(255, 122, 24, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 122, 24, 0); }
+}
+
+/* چیپ‌های زیر ویدیو */
+.video-points {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 26px;
+}
+.v-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--ink-2);
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-xs);
+  backdrop-filter: blur(6px);
+  transition: transform 0.28s ease, border-color 0.28s ease, color 0.28s ease;
+}
+.v-chip i { color: var(--brand); }
+.v-chip:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 122, 24, 0.45);
+  color: var(--brand-ink);
+}
+
 .video-btn-wrapper {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 26px;
+}
+
+@media (max-width: 600px) {
+  .video-stage { padding: 9px; border-radius: 24px; }
+  .video-wrapper { border-radius: 18px; }
+  .video-play { width: 68px; height: 68px; font-size: 1.15rem; }
+  .video-caption { bottom: 11px; inset-inline-start: 11px; font-size: 0.74rem; padding: 6px 12px; }
+  .video-points { gap: 8px; margin-top: 20px; }
+  .v-chip { padding: 8px 14px; font-size: 0.8rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .video-stage::before,
+  .video-play .ring,
+  .live-dot { animation: none !important; }
 }
 
 /* ================================================================
