@@ -454,8 +454,40 @@ header {
 .iphone-wrapper {
   flex: 0 0 auto;
   margin: 0 auto;
+  position: relative;
+  animation: phone-float 6s ease-in-out infinite;
+  transition: transform 0.5s ease;
+}
+/* هاله‌ی نرم پشت گوشی */
+.iphone-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: -12% -18%;
+  background: radial-gradient(closest-side, rgba(255, 122, 24, 0.28), rgba(255, 122, 24, 0) 72%);
+  filter: blur(6px);
+  z-index: 0;
+  animation: phone-glow 6s ease-in-out infinite;
+  pointer-events: none;
+}
+.iphone-wrapper:hover {
+  transform: translateY(-6px) rotate(-0.6deg);
+}
+@keyframes phone-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes phone-glow {
+  0%, 100% { opacity: 0.55; transform: scale(0.96); }
+  50% { opacity: 0.9; transform: scale(1.04); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .iphone-wrapper,
+  .iphone-wrapper::before,
+  .screen::after { animation: none !important; }
 }
 .iphone {
+  position: relative;
+  z-index: 1;
   width: 300px;
   height: 610px;
   background: #1a1a1a;
@@ -530,6 +562,29 @@ header {
   object-fit: contain;
   display: block;
 }
+/* بازتاب نور روی صفحه‌ی گوشی */
+.screen::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -120%;
+  width: 60%;
+  height: 220%;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.16) 45%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(14deg);
+  z-index: 5;
+  pointer-events: none;
+  animation: screen-shine 7s ease-in-out infinite;
+}
+@keyframes screen-shine {
+  0%, 68% { left: -120%; }
+  92%, 100% { left: 160%; }
+}
 
 /* ریسپانسیو گوشی */
 @media (max-width: 1180px) {
@@ -561,6 +616,9 @@ header {
 
 .hero-section-sm {
   display: none;
+}
+.hero-section-sm {
+  padding-top: 26px;
 }
 .hero-flex-sm {
   display: flex;
@@ -1341,6 +1399,10 @@ footer .footer-links a:hover {
   }
   .hero-section-sm {
     display: block;
+    padding-top: 28px;
+  }
+  .hero-flex-sm {
+    padding-top: 14px;
   }
   .download-grid {
     grid-template-columns: repeat(2, 1fr);

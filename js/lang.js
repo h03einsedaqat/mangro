@@ -224,3 +224,21 @@ if (typeof langData !== "undefined") {
 } else {
     console.warn("فایل language.js بارگذاری نشده است.");
 }
+
+// --- پس از رندر شدن محتوای داده‌محور (cms.js) زبان جاری دوباره اعمال شود
+//     تا با برگشت از پنل مدیریت، زبان انگلیسی/عربی به فارسی برنگردد. ---
+(function () {
+  function reapply() {
+    try {
+      var lang = (window.getCurrentLanguage && window.getCurrentLanguage()) || localStorage.getItem("lang") || "fa";
+      if (lang !== "fa" && typeof window.updateTexts === "function") {
+        window.updateTexts(lang);
+      }
+    } catch (e) {}
+  }
+  window.addEventListener("mangro:content-ready", reapply);
+  window.addEventListener("pageshow", reapply);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) reapply();
+  });
+})();
