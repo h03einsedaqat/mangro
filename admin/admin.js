@@ -27,8 +27,50 @@
   function saveCfg(c) { localStorage.setItem(CFG_KEY, JSON.stringify(c)); }
   function storeGet() { try { return JSON.parse(localStorage.getItem(STORE) || "null"); } catch (e) { return null; } }
   function storeSet(d) { try { localStorage.setItem(STORE, JSON.stringify(d)); return true; } catch (e) { return false; } }
-  function messages() { try { return JSON.parse(localStorage.getItem(MSGS) || "[]"); } catch (e) { return []; } }
-  function setMessages(a) { localStorage.setItem(MSGS, JSON.stringify(a)); }
+  var SERVER_MSGS = null;   // پیام‌های خوانده‌شده از سرور
+  function token() {
+    var el = $("#saveToken");
+    var t = el && el.value ? el.value.trim() : "";
+    return t || (cfg().token || "mangro-save-v1");
+  }
+  function messages() {
+    if (SERVER_MSGS) return SERVER_MSGS;
+    try { return JSON.parse(localStorage.getItem(MSGS) || "[]"); } catch (e) { return []; }
+  }
+  function setMessages(a) {
+    SERVER_MSGS = a;
+    try { localStorage.setItem(MSGS, JSON.stringify(a)); } catch (e) {}
+  }
+  // خواندن پیام‌ها از سرور (data/messages.json از طریق php/messages.php)
+  function fetchMessages() {
+    if (!window.fetch) return Promise.resolve(null);
+    return fetch("../php/messages.php?token=" + encodeURIComponent(token()))
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j && j.ok && Array.isArray(j.items)) {
+          SERVER_MSGS = j.items;
+          try { localStorage.setItem(MSGS, JSON.stringify(j.items)); } catch (e) {}
+          return j.items;
+        }
+        return null;
+      })
+      .catch(function () { return null; });
+  }
+  // حذف روی سرور
+  function serverMsgAction(payload) {
+    if (!window.fetch) return Promise.resolve(false);
+    return fetch("../php/messages.php", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "X-Auth-Token": token() },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j && j.ok) { SERVER_MSGS = j.items || []; return true; }
+        return false;
+      })
+      .catch(function () { return false; });
+  }
   function deepMerge(b, o) {
     if (o === null || typeof o !== "object" || Array.isArray(o)) return o;
     if (b === null || typeof b !== "object" || Array.isArray(b)) return o;
@@ -403,8 +445,25 @@
   }
 
   /* ============ پیام‌ها ============ */
-  function renderMessages() {
+  function renderMessages(skipFetch) {
     var list = $("#messagesList");
+    if (!list) return;
+    if (!skipFetch) {
+      list.innerHTML = '<div class="empty"><i class="fas fa-spinner fa-spin"></i> در حال دریافت پیام‌ها از سرور...</div>';
+      fetchMessages().then(function (items) {
+        if (items === null) {
+          var cached = messages();
+          if (!cached.length) {
+            list.innerHTML =
+              '<div class="empty">اتصال به سرور برقرار نشد.<br><small>مطمئن شوید سایت روی هاست باز شده و توکن در تنظیمات درست است.</small></div>';
+            return;
+          }
+        }
+        renderMessages(true);
+        renderDashboard();
+      });
+      return;
+    }
     var ms = messages();
     if (!ms.length) { list.innerHTML = '<div class="empty">پیامی ثبت نشده است.</div>'; return; }
     list.innerHTML = ms.map(function (m, i) {
@@ -418,8 +477,14 @@
     }).join("");
     $$("#messagesList [data-mi]").forEach(function (b) {
       b.addEventListener("click", function () {
-        var ms = messages(); ms.splice(+b.getAttribute("data-mi"), 1); setMessages(ms);
-        renderMessages(); renderDashboard();
+        var idx = +b.getAttribute("data-mi");
+        serverMsgAction({ action: "delete", index: idx }).then(function (ok) {
+          if (!ok) {
+            var ms = messages(); ms.splice(idx, 1); setMessages(ms);
+            toast("حذف روی سرور انجام نشد؛ فقط از نمایش محلی حذف شد.", "err");
+          }
+          renderMessages(true); renderDashboard();
+        });
       });
     });
   }
@@ -435,7 +500,9 @@
       "🔹 ویدیوهای آموزشی: کارت‌های صفحه آموزش. لینک آپارات یا فایل ویدیو + عنوان.\n\n" +
       "🔹 دوره‌های آموزشی: لیست همه دوره‌های صفحه آموزش.\n\n" +
       "🔹 اطلاعات تماس: شماره / ایمیل / آدرس.\n\n" +
-      "🔹 پیام‌های تماس: پیام‌هایی که از فرم تماس می‌آید.\n\n" +
+      "🔹 پیام‌های تماس: پیام‌های فرم تماس مستقیماً از سرور (data/messages.json) خوانده می‌شود\n" +
+      "   و یک نسخه هم به ایمیل مدیر ارسال می‌گردد. برای کار کردن این بخش، توکن تنظیمات باید\n" +
+      "   با توکن php/messages.php یکی باشد و پوشه‌ی data اجازه‌ی نوشتن داشته باشد.\n\n" +
       "📌 ذخیره و انتشار:\n" +
       "   • هر تغییر همین‌جا ذخیره می‌شود و با «ذخیره و انتشار» منتشر می‌شود.\n" +
       "   • برای اینکه همه‌ی بازدیدکننده‌ها ببینند: «دانلود فایل داده» بزنید و content.json را در مسیر data/ روی هاست جایگزین کنید؛\n" +
@@ -445,6 +512,15 @@
 
   /* ============ دکمه‌های بالا و ابزار ============ */
   function bindTop() {
+    // توکن ذخیره‌شده را در فیلد بگذار و هر تغییری را نگه دار
+    var tokEl = $("#saveToken");
+    if (tokEl) {
+      var c0 = cfg();
+      if (c0.token) tokEl.value = c0.token;
+      tokEl.addEventListener("change", function () {
+        var c = cfg(); c.token = tokEl.value.trim(); saveCfg(c);
+      });
+    }
     saveBtn = $("#saveBtn");
     // «ذخیره و انتشار»: اول در همین مرورگر ذخیره می‌شود و همزمان تلاش می‌کند
     // روی سرور (PHP) هم ذخیره کند تا برای همه‌ی بازدیدکننده‌ها اعمال شود.
@@ -513,7 +589,11 @@
       }
     });
     $("#clearMessagesBtn").addEventListener("click", function () {
-      if (confirm("همه پیام‌ها حذف شوند؟")) { setMessages([]); renderMessages(); renderDashboard(); }
+      if (!confirm("همه پیام‌ها حذف شوند؟")) return;
+      serverMsgAction({ action: "clear" }).then(function (ok) {
+        if (!ok) { setMessages([]); toast("حذف روی سرور انجام نشد.", "err"); }
+        renderMessages(true); renderDashboard();
+      });
     });
     $("#changePassBtn").addEventListener("click", function () {
       var c = cfg();

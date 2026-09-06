@@ -201,54 +201,71 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         } else {
           e.preventDefault();
-          // ذخیره‌ی محلی برای مشاهده در پنل ادمین
-          try {
-            var msgs = JSON.parse(localStorage.getItem("mangro_messages") || "[]");
-            msgs.unshift({
-              name: nameValue,
-              phone: phoneValue,
-              message: messageValue,
-              date: new Date().toISOString()
-            });
-            localStorage.setItem("mangro_messages", JSON.stringify(msgs.slice(0, 100)));
-          } catch (err) {}
           submitBtn.disabled = true;
           submitBtn.innerHTML =
             '<i class="fas fa-spinner fa-spin"></i> در حال ارسال...';
           submitBtn.classList.add("loading");
 
-          // تلاش برای ارسال واقعی به php/contact.php (در صورت فعال بودن PHP)
-          var ok = function () { showFormSuccess(); };
-          var fail = function () { showFormSuccess(); };
-          if (contactForm.action && window.fetch) {
-            try {
-              window
-                .fetch(contactForm.action, {
-                  method: "POST",
-                  body: new FormData(contactForm)
-                })
-                .then(function (r) { return r.text(); })
-                .then(fail)
-                .catch(fail);
-            } catch (err) {
-              fail();
-            }
+          // ارسال به سرور (php/contact.php) — پیام برای مدیر ایمیل و در پنل ذخیره می‌شود
+          var action = contactForm.getAttribute("action") || "./php/contact.php";
+          if (window.fetch) {
+            window
+              .fetch(action, {
+                method: "POST",
+                body: new FormData(contactForm)
+              })
+              .then(function (r) {
+                return r.json().catch(function () {
+                  return { ok: r.ok };
+                });
+              })
+              .then(function (res) {
+                if (res && res.ok) {
+                  showFormSuccess(res.msg);
+                } else {
+                  showFormError((res && res.msg) || "ارسال پیام ناموفق بود. لطفاً دوباره تلاش کنید.");
+                }
+              })
+              .catch(function () {
+                showFormError("ارتباط با سرور برقرار نشد. لطفاً بعداً تلاش کنید.");
+              });
           } else {
-            fail();
+            contactForm.submit();
           }
         }
 
-        function showFormSuccess() {
+        function resetBtn() {
           submitBtn.disabled = false;
           submitBtn.classList.remove("loading");
-          submitBtn.innerHTML =
-            '<span id="submitBtnLabel">ارسال پیام</span>';
+          submitBtn.innerHTML = '<span id="submitBtnLabel">ارسال پیام</span>';
+        }
+
+        function showFormError(msg) {
+          resetBtn();
+          var old = contactForm.querySelector(".form-error-box");
+          if (old) old.remove();
+          var box = document.createElement("div");
+          box.className = "form-success form-error-box";
+          box.style.background = "rgba(220,53,69,.09)";
+          box.style.borderColor = "rgba(220,53,69,.35)";
+          box.style.color = "#b3202f";
+          box.innerHTML = '<i class="fas fa-circle-exclamation"></i> ' + msg;
+          contactForm.insertBefore(box, contactForm.firstChild);
+          setTimeout(function () {
+            if (box.parentNode) box.remove();
+          }, 6000);
+        }
+
+        function showFormSuccess(msg) {
+          resetBtn();
           contactForm.reset();
+          var oldErr = contactForm.querySelector(".form-error-box");
+          if (oldErr) oldErr.remove();
           var wrap = contactForm;
           var okBox = document.createElement("div");
           okBox.className = "form-success";
           okBox.innerHTML =
-            '<i class="fas fa-circle-check"></i> پیام شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم.';
+            '<i class="fas fa-circle-check"></i> ' + (msg || "پیام شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم.");
           wrap.insertBefore(okBox, wrap.firstChild);
           setTimeout(function () {
             if (okBox.parentNode) okBox.remove();

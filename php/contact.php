@@ -1,108 +1,171 @@
 <?php
-// ===== تنظیم هدر برای UTF-8 (نمایش صحیح در مرورگر) =====
-header('Content-Type: text/html; charset=utf-8');
+/**
+ * contact.php — دریافت پیام فرم تماس
+ * ------------------------------------------------------------------
+ * ۱) پیام را در فایل  data/messages.json  روی هاست ذخیره می‌کند
+ *    (تا در پنل مدیریت، تب «پیام‌های تماس» نمایش داده شود)
+ * ۲) یک نسخه هم به ایمیل مدیر ارسال می‌کند
+ * ۳) در صورت وجود دیتابیس، پیام در جدول contacts هم ثبت می‌شود (اختیاری)
+ *
+ * پاسخ همیشه JSON است تا فرم سایت بدون رفتن به صفحه‌ی جدید کار کند.
+ */
 
-// ===== تنظیمات اتصال به دیتابیس =====
-$servername = "localhost";
-$username   = "cp42498";
-$password   = "UJfT8GsE8K";
-$dbname     = "cp42498_powerwxcel";
+header('Content-Type: application/json; charset=utf-8');
 
-// ایجاد اتصال
-$conn = new mysqli($servername, $username, $password, $dbname);
+/* ============ تنظیمات ============ */
+$ADMIN_EMAIL = 'ghasem76@gmail.com';   // ← ایمیل مقصد
+$SITE_NAME   = 'نرم‌افزار حسابداری مانگرو';
+$USE_DB      = true;                    // اگر دیتابیس ندارید false کنید
 
-// بررسی اتصال
-if ($conn->connect_error) {
-    die("اتصال به دیتابیس: " . $conn->connect_error);
-}
+$DB = [
+    'host' => 'localhost',
+    'user' => 'cp42498',
+    'pass' => 'UJfT8GsE8K',
+    'name' => 'cp42498_powerwxcel',
+];
 
-// ===== تنظیم کدگذاری اتصال به UTF-8 (برای ذخیره و خواندن صحیح فارسی) =====
-$conn->set_charset("utf8mb4");
-
-// ===== دریافت داده‌های ارسال‌شده از فرم =====
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // دریافت و پاکسازی ورودی‌ها
-    $name    = htmlspecialchars(trim($_POST['name']));
-    $phone   = htmlspecialchars(trim($_POST['phone']));
-    $message = htmlspecialchars(trim($_POST['message']));
-
-    // اعتبارسنجی ساده
-    $errors = [];
-    if (empty($name))    $errors[] = "نام و نام خانوادگی الزامی است.";
-    if (empty($phone))   $errors[] = "شماره تماس الزامی است.";
-    if (empty($message)) $errors[] = "متن پیام الزامی است.";
-
-    if (count($errors) > 0) {
-        echo "<h3>❌ خطا در ارسال فرم:</h3><ul>";
-        foreach ($errors as $error) {
-            echo "<li>$error</li>";
-        }
-        echo "</ul><a href='javascript:history.back()'>بازگشت به فرم</a>";
-        exit;
-    }
-
-    // ===== ذخیره در دیتابیس =====
-    $stmt = $conn->prepare("INSERT INTO contacts (name, phone, message) VALUES (?, ?, ?)");
-    $stmt->bind_param("sss", $name, $phone, $message);
-
-    if ($stmt->execute()) {
-        // نمایش پیام موفقیت با استایل زیبا
-        echo '<!DOCTYPE html>
-        <html lang="fa" dir="rtl">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>پیام ارسال شد</title>
-            <style>
-                body { font-family: system-ui, sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; direction: rtl; }
-                .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
-                .btn { display: inline-block; margin-top: 20px; padding: 12px 35px; background: #FF9800; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; }
-                .btn:hover { background: #e68900; }
-                .icon { font-size: 50px; }
-                .green { color: #28a745; }
-            </style>
-        </head>
-        <body>
-            <div class="card">
-                <div class="icon green">✅</div>
-                <h2 style="color:#28a745;">پیام شما با موفقیت ذخیره شد.</h2>
-                <p>از اعتماد شما سپاسگزاریم. به زودی با شما تماس می‌گیریم.</p>
-                <a href="../index.html" class="btn">بازگشت به صفحه اصلی</a>
-            </div>
-        </body>
-        </html>';
-    } else {
-        // نمایش پیام خطا
-        echo '<!DOCTYPE html>
-        <html lang="fa" dir="rtl">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>خطا</title>
-            <style>
-                body { font-family: system-ui, sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; direction: rtl; }
-                .card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; max-width: 500px; }
-                .btn { display: inline-block; margin-top: 20px; padding: 12px 35px; background: #dc3545; color: white; text-decoration: none; border-radius: 50px; font-weight: 600; }
-                .btn:hover { background: #c82333; }
-                .icon { font-size: 50px; }
-                .red { color: #dc3545; }
-            </style>
-        </head>
-        <body>
-            <div class="card">
-                <div class="icon red">❌</div>
-                <h2 style="color:#dc3545;">خطا در ذخیره پیام.</h2>
-                <p>لطفاً دوباره تلاش کنید.</p>
-                <a href="javascript:history.back()" class="btn">بازگشت به فرم</a>
-            </div>
-        </body>
-        </html>';
-    }
-
-    $stmt->close();
-    $conn->close();
-} else {
-    header("Location: ../index.html");
+/* ============ فقط POST ============ */
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    http_response_code(405);
+    echo json_encode(['ok' => false, 'msg' => 'فقط POST مجاز است'], JSON_UNESCAPED_UNICODE);
     exit;
 }
-?>
+
+/* ============ دریافت ورودی (form-data یا JSON) ============ */
+$input = $_POST;
+if (empty($input)) {
+    $raw = file_get_contents('php://input');
+    $j = json_decode($raw, true);
+    if (is_array($j)) $input = $j;
+}
+
+$name    = isset($input['name'])    ? trim(strip_tags($input['name']))    : '';
+$phone   = isset($input['phone'])   ? trim(strip_tags($input['phone']))   : '';
+$message = isset($input['message']) ? trim(strip_tags($input['message'])) : '';
+
+/* ============ اعتبارسنجی ============ */
+$errors = [];
+if ($name === '')                       $errors[] = 'نام و نام خانوادگی الزامی است.';
+if ($phone === '')                      $errors[] = 'شماره تماس الزامی است.';
+if ($message === '')                    $errors[] = 'متن پیام الزامی است.';
+if (mb_strlen($name) > 120)             $errors[] = 'نام بیش از حد طولانی است.';
+if (mb_strlen($message) > 4000)         $errors[] = 'متن پیام بیش از حد طولانی است.';
+if ($phone !== '' && !preg_match('/^[0-9+\-\s()]{7,20}$/u', $phone)) {
+    $errors[] = 'شماره تماس معتبر نیست.';
+}
+
+if ($errors) {
+    http_response_code(422);
+    echo json_encode(['ok' => false, 'msg' => implode(' ', $errors)], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+/* ============ ضدّ اسپم ساده: حداکثر ۱ پیام در ۳۰ ثانیه از هر IP ============ */
+$ip      = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '0.0.0.0';
+$dataDir = __DIR__ . '/../data';
+$lockFile = $dataDir . '/.throttle_' . md5($ip);
+if (is_dir($dataDir) && file_exists($lockFile) && (time() - filemtime($lockFile)) < 30) {
+    http_response_code(429);
+    echo json_encode(['ok' => false, 'msg' => 'کمی صبر کنید و دوباره تلاش کنید.'], JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+/* ============ ۱) ذخیره در فایل messages.json ============ */
+$saved   = false;
+$saveMsg = '';
+$file = $dataDir . '/messages.json';
+
+if (!is_dir($dataDir)) {
+    @mkdir($dataDir, 0755, true);
+}
+
+if (is_dir($dataDir) && is_writable($dataDir)) {
+    $list = [];
+    if (file_exists($file)) {
+        $old = json_decode(@file_get_contents($file), true);
+        if (is_array($old)) $list = $old;
+    }
+    array_unshift($list, [
+        'name'    => $name,
+        'phone'   => $phone,
+        'message' => $message,
+        'date'    => date('c'),
+        'ip'      => $ip,
+    ]);
+    if (count($list) > 500) $list = array_slice($list, 0, 500);
+
+    $ok = @file_put_contents(
+        $file,
+        json_encode($list, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE),
+        LOCK_EX
+    );
+    $saved = ($ok !== false);
+    if (!$saved) $saveMsg = 'خطا در نوشتن فایل پیام‌ها.';
+    @touch($lockFile);
+} else {
+    $saveMsg = 'پوشه‌ی data قابل نوشتن نیست (CHMOD 755 یا 775 بدهید).';
+}
+
+/* ============ ۲) ارسال ایمیل به مدیر ============ */
+$mailSent = false;
+if (function_exists('mail')) {
+    $host = isset($_SERVER['HTTP_HOST']) ? preg_replace('/[^a-zA-Z0-9\.\-]/', '', $_SERVER['HTTP_HOST']) : 'localhost';
+    $from = 'no-reply@' . preg_replace('/^www\./', '', $host);
+
+    $subject = 'پیام جدید از فرم تماس ' . $SITE_NAME;
+
+    $body  = "<div style=\"font-family:Tahoma,Arial,sans-serif;direction:rtl;text-align:right;line-height:2\">";
+    $body .= "<h2 style=\"color:#e4570e;margin:0 0 12px\">پیام جدید از سایت</h2>";
+    $body .= "<p><b>نام:</b> " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8') . "</p>";
+    $body .= "<p><b>شماره تماس:</b> <span dir=\"ltr\">" . htmlspecialchars($phone, ENT_QUOTES, 'UTF-8') . "</span></p>";
+    $body .= "<p><b>تاریخ:</b> " . date('Y-m-d H:i:s') . "</p>";
+    $body .= "<hr style=\"border:none;border-top:1px solid #eee\">";
+    $body .= "<p><b>متن پیام:</b><br>" . nl2br(htmlspecialchars($message, ENT_QUOTES, 'UTF-8')) . "</p>";
+    $body .= "<hr style=\"border:none;border-top:1px solid #eee\">";
+    $body .= "<p style=\"color:#888;font-size:12px\">IP: " . htmlspecialchars($ip, ENT_QUOTES, 'UTF-8') . "</p>";
+    $body .= "</div>";
+
+    $headers  = "MIME-Version: 1.0\r\n";
+    $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+    $headers .= "From: " . $SITE_NAME . " <" . $from . ">\r\n";
+    $headers .= "Reply-To: " . $from . "\r\n";
+    $headers .= "X-Mailer: PHP/" . phpversion() . "\r\n";
+
+    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $mailSent = @mail($ADMIN_EMAIL, $encodedSubject, $body, $headers, '-f' . $from);
+}
+
+/* ============ ۳) ذخیره در دیتابیس (اختیاری) ============ */
+if ($USE_DB && class_exists('mysqli')) {
+    try {
+        $conn = @new mysqli($DB['host'], $DB['user'], $DB['pass'], $DB['name']);
+        if (!$conn->connect_error) {
+            $conn->set_charset('utf8mb4');
+            $stmt = $conn->prepare('INSERT INTO contacts (name, phone, message) VALUES (?, ?, ?)');
+            if ($stmt) {
+                $stmt->bind_param('sss', $name, $phone, $message);
+                @$stmt->execute();
+                $stmt->close();
+            }
+            $conn->close();
+        }
+    } catch (Exception $e) {
+        // دیتابیس اختیاری است؛ خطا نادیده گرفته می‌شود
+    }
+}
+
+/* ============ پاسخ ============ */
+if ($saved || $mailSent) {
+    echo json_encode([
+        'ok'    => true,
+        'saved' => $saved,
+        'mail'  => $mailSent,
+        'msg'   => 'پیام شما با موفقیت ارسال شد. به زودی با شما تماس می‌گیریم.'
+    ], JSON_UNESCAPED_UNICODE);
+} else {
+    http_response_code(500);
+    echo json_encode([
+        'ok'  => false,
+        'msg' => $saveMsg !== '' ? $saveMsg : 'ارسال پیام ناموفق بود. لطفاً دوباره تلاش کنید.'
+    ], JSON_UNESCAPED_UNICODE);
+}
