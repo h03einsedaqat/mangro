@@ -516,15 +516,17 @@ header {
   animation: phone-float 6s ease-in-out infinite;
   transition: transform 0.5s ease;
 }
-/* هاله‌ی نرم پشت گوشی */
+/* هاله‌ی رنگی نرم پشت گوشی */
 .iphone-wrapper::before {
   content: "";
   position: absolute;
-  inset: -12% -18%;
-  background: radial-gradient(closest-side, rgba(255, 122, 24, 0.28), rgba(255, 122, 24, 0) 72%);
-  filter: blur(6px);
+  inset: -14% -22%;
+  background:
+    radial-gradient(closest-side at 62% 30%, rgba(255, 122, 24, 0.32), rgba(255, 122, 24, 0) 70%),
+    radial-gradient(closest-side at 32% 72%, rgba(90, 150, 255, 0.22), rgba(90, 150, 255, 0) 72%);
+  filter: blur(10px);
   z-index: 0;
-  animation: phone-glow 6s ease-in-out infinite;
+  animation: phone-glow 7s ease-in-out infinite;
   pointer-events: none;
 }
 .iphone-wrapper:hover {
@@ -548,7 +550,7 @@ header {
   position: relative;
   z-index: 1;
   width: 300px;
-  height: 610px;
+  height: 630px;
   /* بدنه‌ی تیتانیومی با بازتاب فلزی */
   background:
     linear-gradient(150deg, #4a4f57 0%, #16181c 14%, #0e1013 50%, #1b1e23 82%, #565b64 100%);
@@ -596,31 +598,32 @@ header {
 /* ناچ (بریدگی بالای صفحه) */
 .notch {
   position: absolute;
-  top: 20px;
+  top: 19px;
   left: 50%;
   transform: translateX(-50%);
-  width: 104px;
-  height: 28px;
-  background: #08090b;
+  width: 86px;
+  height: 22px;
+  background: #05070a;
   border-radius: 999px;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06), 0 4px 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.07), 0 3px 8px rgba(0, 0, 0, 0.55);
   z-index: 10;
+  gap: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 12px;
 }
 .notch .camera {
-  width: 10px;
-  height: 10px;
-  background: #2a2a3a;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  border: 1px solid #3a3a4a;
+  background: radial-gradient(circle at 32% 30%, #4b5a74 0%, #141a26 60%, #05070a 100%);
+  box-shadow: 0 0 3px rgba(120, 170, 255, 0.35);
 }
 .notch .speaker {
-  width: 50px;
-  height: 5px;
-  background: #2a2a3a;
+  width: 30px;
+  height: 4px;
+  background: #171a20;
   border-radius: 10px;
 }
 /* دکمه‌های کناری گوشی */
@@ -651,28 +654,96 @@ header {
   border-radius: 36px;
   overflow: hidden;
   position: relative;
-  background: #000;
+  /* ناحیه‌های امن بالا و پایین تا آیلند و نوار خانه روی تصویر نیفتند */
+  padding: 30px 0 22px;
+  background: radial-gradient(120% 90% at 50% 0%, #131a26 0%, #05070b 60%, #000 100%);
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+}
+/* نوار وضعیت شبیه گوشی واقعی (ساعت، آنتن، وای‌فای، باتری) */
+.status-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  font-size: 10px;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.4px;
+  z-index: 8;
+  pointer-events: none;
+}
+.status-bar .sb-icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.status-bar .sb-bars {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 1.5px;
+  height: 9px;
+}
+.status-bar .sb-bars i {
+  width: 2px;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.85);
+}
+.status-bar .sb-bars i:nth-child(1) { height: 3px; }
+.status-bar .sb-bars i:nth-child(2) { height: 5px; }
+.status-bar .sb-bars i:nth-child(3) { height: 7px; }
+.status-bar .sb-bars i:nth-child(4) { height: 9px; }
+.status-bar .sb-batt {
+  width: 18px;
+  height: 9px;
+  border: 1.2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 3px;
+  position: relative;
+  padding: 1px;
+}
+.status-bar .sb-batt::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 72%;
+  border-radius: 1px;
+  background: #4ade80;
+}
+.status-bar .sb-batt::after {
+  content: "";
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 4px;
+  border-radius: 0 2px 2px 0;
+  background: rgba(255, 255, 255, 0.6);
 }
 /* نوار خانه (home indicator) */
 .iphone .home-bar {
   position: absolute;
-  bottom: 20px;
+  bottom: 21px;
   left: 50%;
   transform: translateX(-50%);
-  width: 108px;
-  height: 5px;
+  width: 104px;
+  height: 4px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.55);
   z-index: 11;
   pointer-events: none;
-  mix-blend-mode: overlay;
 }
 .screen img {
   width: 100%;
   height: 100%;
   object-fit: contain;
   display: block;
+  position: relative;
+  z-index: 1;
 }
 /* بازتاب نور روی صفحه‌ی گوشی */
 .screen::after {
@@ -700,30 +771,38 @@ header {
 
 /* ریسپانسیو گوشی */
 @media (max-width: 1180px) {
-  .iphone { width: 256px; height: 522px; border-radius: 40px; }
-  .screen { border-radius: 33px; }
-  .notch { width: 92px; height: 25px; top: 18px; }
-  .notch .speaker { width: 34px; }
+  .iphone { width: 256px; height: 540px; border-radius: 40px; }
+  .screen { border-radius: 33px; padding: 27px 0 20px; }
+  .status-bar { height: 27px; padding: 0 16px; font-size: 9px; }
+  .notch { width: 78px; height: 20px; top: 17px; }
+  .notch .speaker { width: 26px; }
+  .iphone .home-bar { width: 92px; }
 }
 @media (max-width: 960px) {
-  .iphone { width: 236px; height: 482px; }
+  .iphone { width: 236px; height: 500px; }
 }
 @media (max-width: 600px) {
-  .iphone { width: 205px; height: 420px; padding: 9px; border-radius: 36px; }
-  .screen { border-radius: 29px; }
-  .notch { width: 82px; height: 22px; top: 16px; }
-  .notch .speaker { width: 28px; height: 4px; }
-  .iphone .home-bar { width: 78px; height: 4px; bottom: 15px; }
+  .iphone { width: 205px; height: 436px; padding: 9px; border-radius: 36px; }
+  .screen { border-radius: 29px; padding: 23px 0 17px; }
+  .status-bar { height: 23px; padding: 0 13px; font-size: 8px; }
+  .status-bar .sb-batt { width: 15px; height: 8px; }
+  .notch { width: 66px; height: 18px; top: 13px; }
+  .notch .camera { width: 6px; height: 6px; }
+  .notch .speaker { width: 20px; height: 3px; }
+  .iphone .home-bar { width: 76px; height: 3.5px; bottom: 15px; }
   .side-btn-top { top: 70px; height: 30px; }
   .side-btn-bottom { top: 118px; height: 44px; }
 }
 @media (max-width: 400px) {
-  .iphone { width: 176px; height: 360px; padding: 7px; border-radius: 30px; }
-  .screen { border-radius: 25px; }
-  .notch { width: 70px; height: 19px; top: 13px; }
-  .notch .camera { width: 7px; height: 7px; }
-  .notch .speaker { width: 22px; height: 3px; }
-  .iphone .home-bar { width: 64px; height: 3px; bottom: 12px; }
+  .iphone { width: 176px; height: 376px; padding: 7px; border-radius: 30px; }
+  .screen { border-radius: 25px; padding: 20px 0 15px; }
+  .status-bar { height: 20px; padding: 0 11px; font-size: 7px; gap: 3px; }
+  .status-bar .sb-batt { width: 13px; height: 7px; }
+  .status-bar .sb-bars { height: 7px; }
+  .notch { width: 58px; height: 16px; top: 11px; }
+  .notch .camera { width: 5px; height: 5px; }
+  .notch .speaker { width: 17px; height: 3px; }
+  .iphone .home-bar { width: 64px; height: 3px; bottom: 13px; }
   .side-btn-top { top: 58px; height: 26px; }
   .side-btn-bottom { top: 96px; height: 36px; }
 }
