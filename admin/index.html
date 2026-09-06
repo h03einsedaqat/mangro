@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>پنل مدیریت — مانگرو</title>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="admin.css" />
+    <link rel="icon" type="image/webp" href="../img/logo.webp" />
+  </head>
+  <body>
+    <!-- ===== ورود ===== -->
+    <div class="login-screen" id="loginScreen">
+      <form class="login-card" id="loginForm">
+        <img src="../img/logo.webp" alt="مانگرو" />
+        <h1>پنل مدیریت سایت</h1>
+        <p>نرم‌افزار حسابداری مانگرو</p>
+        <label for="passwordInput">رمز عبور</label>
+        <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید" />
+        <button type="submit">ورود به پنل</button>
+        <div class="login-error" id="loginError">رمز عبور اشتباه است.</div>
+      </form>
+    </div>
+
+    <!-- ===== پنل ===== -->
+    <div class="admin-shell" id="adminShell" style="display: none">
+      <aside class="sidebar">
+        <div class="side-brand">
+          <img src="../img/logo.webp" alt="مانگرو" />
+          <div><strong>مانگرو</strong><small>پنل مدیریت محتوا</small></div>
+        </div>
+        <button class="btn btn-line btn-sm mobile-nav-toggle" id="navToggle"><i class="fas fa-bars"></i> منو</button>
+        <nav class="side-nav" id="sideNav">
+          <div class="nav-group">اصلی</div>
+          <div class="nav-item active" data-tab="dashboard"><i class="fas fa-gauge-high"></i> داشبورد</div>
+
+          <div class="nav-group">محتوا</div>
+          <div class="nav-item" data-tab="home"><i class="fas fa-house-chimney"></i> صفحه اصلی</div>
+          <div class="nav-item" data-tab="gallery"><i class="fas fa-images"></i> گالری تصاویر</div>
+          <div class="nav-item" data-tab="videos"><i class="fas fa-video"></i> ویدیوهای آموزشی</div>
+          <div class="nav-item" data-tab="courses"><i class="fas fa-list"></i> دوره‌های آموزشی</div>
+          <div class="nav-item" data-tab="contact"><i class="fas fa-phone"></i> اطلاعات تماس</div>
+
+          <div class="nav-group">بازخورد</div>
+          <div class="nav-item" data-tab="messages"><i class="fas fa-envelope-open-text"></i> پیام‌های تماس</div>
+
+          <div class="nav-group">تنظیمات</div>
+          <div class="nav-item" data-tab="settings"><i class="fas fa-gear"></i> تنظیمات</div>
+          <div class="nav-item" data-tab="help"><i class="fas fa-circle-question"></i> راهنما</div>
+        </nav>
+        <div class="side-foot">
+          <a href="#" id="viewSiteBtn"><i class="fas fa-eye"></i> مشاهده سایت</a>
+          <button id="logoutBtn"><i class="fas fa-right-from-bracket"></i> خروج</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <div class="topbar">
+          <div>
+            <h2 id="pageTitle">داشبورد</h2>
+            <div class="status-pill"><span class="dot"></span> تغییرات با «ذخیره و انتشار» در سایت اعمال می‌شود</div>
+          </div>
+          <div>
+            <button class="btn btn-green" id="saveBtn"><i class="fas fa-cloud-arrow-up"></i> ذخیره و انتشار</button>
+            <button class="btn btn-line" id="downloadBtn" style="margin-inline-start:6px"><i class="fas fa-download"></i> دانلود فایل داده</button>
+          </div>
+        </div>
+
+        <!-- داشبورد -->
+        <div class="panel" id="tab-dashboard">
+          <div class="grid cols-4" id="statCards"></div>
+          <div style="height:20px"></div>
+          <div class="card">
+            <h3 style="margin-bottom:12px">خوش آمدید 👋</h3>
+            <p style="color:var(--muted)">از این پنل می‌توانید محتوای سایت را مدیریت کنید:</p>
+            <ul style="color:var(--muted);margin:10px 0 0 0;padding-inline-start:20px;line-height:2">
+              <li><b>صفحه اصلی</b> ← متن هیرو، ویژگی‌ها، لینک‌های دانلود، اکسل، فرم تماس و فوتر</li>
+              <li><b>گالری تصاویر</b> ← اسلایدر «تصاویر برنامه» (افزودن/حذف/آپلود/ترتیب)</li>
+              <li><b>ویدیوهای آموزشی</b> ← کارت‌های صفحه آموزش</li>
+              <li><b>دوره‌های آموزشی</b> ← لیست دوره‌های صفحه آموزش</li>
+              <li><b>اطلاعات تماس</b> ← شماره، ایمیل، آدرس</li>
+              <li><b>پیام‌های تماس</b> ← پیام‌های فرم تماس</li>
+            </ul>
+            <p style="color:var(--muted);margin-top:10px">هر تغییری را که خواستید بزنید و روی <b>«ذخیره و انتشار»</b> کلیک کنید، سپس با <b>«مشاهده سایت»</b> نتیجه را ببینید. برای اعمال دائمی روی هاست، فایل داده را دانلود و در <code>data/</code> جایگزین کنید (یا اگر PHP دارید از «ذخیره روی سرور» استفاده کنید).</p>
+          </div>
+        </div>
+
+        <!-- صفحه اصلی -->
+        <div class="panel" id="tab-home" style="display:none">
+          <div class="hint"><i class="fas fa-circle-info"></i> تمام متن‌های صفحه اصلی را اینجا ویرایش کنید. هر فیلد که پر شد، فقط روی دکمه «ذخیره و انتشار» بزنید. این متن‌ها در حالت فارسی به‌صورت زنده روی سایت اعمال و در انگلیسی/عربی ترجمه می‌شوند.</div>
+          <div id="homeEditor"></div>
+        </div>
+
+        <!-- گالری -->
+        <div class="panel" id="tab-gallery" style="display:none">
+          <div class="hint"><i class="fas fa-circle-info"></i> این تصاویر در اسلایدر <b>«تصاویر برنامه»</b> صفحه اصلی نمایش داده می‌شوند. عکس جدید را با «افزودن تصویر» اضافه و آپلود کنید یا مسیر/لینک عکس را وارد کنید.</div>
+          <div class="list-header">
+            <h3>تصاویر گالری (صفحه اصلی)</h3>
+            <button class="btn btn-brand" id="addGalleryBtn"><i class="fas fa-plus"></i> افزودن تصویر</button>
+          </div>
+          <div class="list" id="galleryList"></div>
+        </div>
+
+        <!-- ویدیوها -->
+        <div class="panel" id="tab-videos" style="display:none">
+          <div class="hint"><i class="fas fa-circle-info"></i> کارت‌های ویدیوی صفحه آموزش. برای افزودن، لینک آپارات (مثل <code>https://www.aparat.com/v/xxxx</code>) یا آدرس فایل را همراه با عنوان وارد کنید.</div>
+          <div class="list-header">
+            <h3>ویدیوهای آموزشی</h3>
+            <button class="btn btn-brand" id="addVideoBtn"><i class="fas fa-plus"></i> افزودن ویدیو</button>
+          </div>
+          <div class="list" id="videoList"></div>
+        </div>
+
+        <!-- دوره‌ها -->
+        <div class="panel" id="tab-courses" style="display:none">
+          <div class="hint"><i class="fas fa-circle-info"></i> لیست همه دوره‌های آموزشی صفحه آموزش.</div>
+          <div class="list-header">
+            <h3>دوره‌های آموزشی</h3>
+            <button class="btn btn-brand" id="addCourseBtn"><i class="fas fa-plus"></i> افزودن دوره</button>
+          </div>
+          <div class="list" id="courseList"></div>
+        </div>
+
+        <!-- تماس -->
+        <div class="panel" id="tab-contact" style="display:none">
+          <div class="grid cols-3">
+            <div class="card">
+              <h3 style="margin-bottom:12px">شماره تماس</h3>
+              <div class="field"><label>مقدار</label><input id="c_phoneV" dir="ltr" data-path="home.contactPhoneValue" /></div>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:12px">ایمیل</h3>
+              <div class="field"><label>مقدار</label><input id="c_emailV" dir="ltr" data-path="home.contactEmailValue" /></div>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:12px">آدرس</h3>
+              <div class="field"><label>مقدار</label><input id="c_addrV" data-path="home.contactAddressValue" /></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- پیام‌ها -->
+        <div class="panel" id="tab-messages" style="display:none">
+          <div class="list-header">
+            <h3>پیام‌های دریافتی از فرم تماس</h3>
+            <button class="btn btn-red btn-sm" id="clearMessagesBtn"><i class="fas fa-trash"></i> پاک کردن همه</button>
+          </div>
+          <div class="list" id="messagesList"></div>
+        </div>
+
+        <!-- تنظیمات -->
+        <div class="panel" id="tab-settings" style="display:none">
+          <div class="grid cols-2">
+            <div class="card">
+              <h3 style="margin-bottom:12px">تغییر رمز عبور</h3>
+              <div class="field"><label>رمز فعلی</label><input type="password" id="oldPass" /></div>
+              <div class="field"><label>رمز جدید</label><input type="password" id="newPass" /></div>
+              <button class="btn btn-brand" id="changePassBtn">تغییر رمز</button>
+            </div>
+            <div class="card">
+              <h3 style="margin-bottom:12px">انتشار و داده</h3>
+              <p style="color:var(--muted);font-size:.9rem;margin-bottom:12px">محتوا در <code>data/content.json</code> ذخیره می‌شود. برای انتشار روی هاست فایل را دانلود و جایگزین کنید، یا اگر PHP فعال است از «ذخیره روی سرور» استفاده کنید.</p>
+              <button class="btn btn-line" id="exportBtn"><i class="fas fa-file-export"></i> دریافت فایل JSON</button>
+              <button class="btn btn-red" id="resetBtn" style="margin-inline-start:6px"><i class="fas fa-rotate-left"></i> بازنشانی به پیش‌فرض</button>
+              <hr style="border:none;border-top:1px solid var(--line);margin:18px 0" />
+              <div class="field"><label>توکن ذخیره روی سرور</label><input id="saveToken" value="mangro-save-v1" dir="ltr" /></div>
+              <button class="btn btn-green" id="serverSaveBtn"><i class="fas fa-server"></i> ذخیره روی سرور (PHP)</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- راهنما -->
+        <div class="panel" id="tab-help" style="display:none">
+          <div class="card">
+            <h3 style="margin-bottom:12px">راهنمای پنل مدیریت</h3>
+            <div class="hint green" style="white-space:pre-line" id="helpText"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast-wrap" id="toastWrap"></div>
+    <script defer src="admin.js"></script>
+  </body>
+</html>
