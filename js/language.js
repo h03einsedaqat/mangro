@@ -25,10 +25,10 @@ const langData = {
 
         gallery_title: "تصاویر برنامه",
 
-        video_title: "🎥 ویدیوی معرفی نرم‌افزار",
+        video_title: "ویدیوی معرفی نرم‌افزار",
         video_btn: "سایر آموزش‌ها",
 
-        download_title: "📲 همین الان دانلود کن!",
+        download_title: "همین الان دانلود کن!",
         download_ios: "نسخه آیفون",
         download_ios_sub: "(به زودی)",
         download_android: "نسخه اندروید",
@@ -43,7 +43,7 @@ const langData = {
         excel_banking: "مغایرت بانکی با اکسل",
         excel_btn: "توضیحات",
 
-        contact_title: "📞 تماس با ما",
+        contact_title: "تماس با ما",
         contact_phone: "شماره تماس",
         contact_email: "آدرس ایمیل",
         contact_address: "آدرس",
@@ -64,7 +64,7 @@ const langData = {
         accounting_hero_title: "حسابداری با <span>اکسل</span>",
         accounting_hero_sub: "ارزان‌ترین و بهترین برنامه حسابداری با اکسل",
         accounting_hero_users: "با بیش از <strong>۵۸۰</strong> کاربر فعال تا سال ۱۳۹۷ در سراسر ایران",
-        accounting_features_title: "✨ ویژگی‌های برنامه",
+        accounting_features_title: "ویژگی‌های برنامه",
         accounting_features_desc: "برنامه حسابداری با اکسل، تمام نیازهای حسابداری شما را به ساده‌ترین شکل ممکن پوشش می‌دهد.",
         accounting_feature1_title: "تعریف حساب‌ها به دلخواه شما",
         accounting_feature1_desc: "امکان تعریف و ویرایش حساب‌های مالی بر اساس نیاز کسب‌وکار شما",
@@ -84,7 +84,7 @@ const langData = {
         accounting_feature8_desc: "انتخاب تقویم مورد نظر برای ثبت و گزارش‌گیری مالی",
         accounting_feature9_title: "کاردکس هر حساب با خروجی PDF",
         accounting_feature9_desc: "دریافت کاردکس حساب‌ها به صورت فایل PDF برای هر دوره مالی",
-        accounting_gallery_title: "🖼️ تصاویر برنامه",
+        accounting_gallery_title: "تصاویر برنامه",
         accounting_download_btn: "دانلود برنامه حسابداری با اکسل",
 
         // ===== صفحه انبار خرید و فروش (storage) =====
@@ -92,7 +92,7 @@ const langData = {
         storage_hero_title: "انبار خرید و فروش با <span>اکسل</span>",
         storage_hero_sub: "بهترین برنامه انبار خرید و فروش کالا با اکسل و امکان گزارش‌گیری سود به روش <strong>فایفو</strong><br>با بیش از <strong>۵۸۰</strong> کاربر فعال در سراسر ایران",
         storage_hero_badge: "محاسبه دقیق سود در بازه‌های زمانی دلخواه",
-        storage_features_title: "✨ ویژگی‌های برنامه",
+        storage_features_title: "ویژگی‌های برنامه",
         storage_features_desc: "برای اولین بار بهترین برنامه انبار خرید و فروش کالا با اکسل و امکان گزارش‌گیری سود به روش فایفو توسط گروه نرم‌افزاری مانگرو تهیه گردیده است. با ثبت صحیح اطلاعات، گزارش دقیق سود به روش فایفو در بازه زمانی دلخواه به ریز هر کالا تهیه خواهد شد.",
         storage_feature1_title: "گزارش‌گیری سود به روش فایفو",
         storage_feature1_desc: "محاسبه دقیق سود به روش فایفو در بازه زمانی دلخواه به ریز هر کالا",
@@ -106,7 +106,7 @@ const langData = {
         storage_feature5_desc: "امکان چاپ کلیه گزارش‌های مالی و انبار به صورت خروجی PDF",
         storage_feature6_title: "گزارش‌گیری پیشرفته",
         storage_feature6_desc: "تهیه گزارشات دقیق از وضعیت انبار، خرید و فروش و سوددهی کالاها",
-        storage_gallery_title: "🖼️ تصاویر برنامه",
+        storage_gallery_title: "تصاویر برنامه",
         storage_download_btn: "دانلود فایل برنامه انبار خرید و فروش",
 
         // ===== صفحه فروش با بارکد (barcode) =====
@@ -114,7 +114,7 @@ const langData = {
         barcode_hero_title: "فروش محصول با <span>بارکد</span>",
         barcode_hero_sub: "بهترین برنامه فروش محصول با بارکد در اکسل<br>دیگر نیاز به خرید برنامه‌های گران‌قیمت و پیچیده ندارید.",
         barcode_hero_badge: "در دو نسخه ساده و پیشرفته",
-        barcode_features_title: "✨ ویژگی‌های برنامه",
+        barcode_features_title: "ویژگی‌های برنامه",
         barcode_features_desc: "برنامه فروش محصول با بارکد در اکسل، راهکاری ساده و کارآمد برای مدیریت فروش محصولات با استفاده از بارکد است. این برنامه در دو نسخه ساده و پیشرفته تهیه شده که به تناسب نیاز کاربران قابل استفاده است.",
         barcode_feature1_title: "خواندن بارکد محصولات",
         barcode_feature1_desc: "امکان خواندن بارکد محصولات با استفاده از اسکنر بارکد و ورود خودکار اطلاعات",
@@ -128,14 +128,14 @@ const langData = {
         barcode_feature5_desc: "تهیه گزارشات فروش روزانه، هفتگی و ماهانه به تفکیک هر محصول",
         barcode_feature6_title: "چاپ بارکد محصولات",
         barcode_feature6_desc: "امکان طراحی و چاپ بارکد برای محصولات جدید به صورت حرفه‌ای",
-        barcode_versions_title: "📦 نسخه‌های برنامه",
+        barcode_versions_title: "نسخه‌های برنامه",
         barcode_version_simple_title: "نسخه ساده",
         barcode_version_simple_desc: "مناسب برای فروشگاه‌های کوچک و کاربرانی که نیاز به امکانات پایه فروش با بارکد دارند.",
         barcode_version_simple_badge: "مناسب برای شروع",
         barcode_version_advanced_title: "نسخه پیشرفته",
         barcode_version_advanced_desc: "مناسب برای فروشگاه‌های بزرگ با امکانات کامل گزارش‌گیری، مدیریت انبار و چاپ بارکد.",
         barcode_version_advanced_badge: "امکانات کامل",
-        barcode_gallery_title: "🖼️ تصاویر برنامه",
+        barcode_gallery_title: "تصاویر برنامه",
         barcode_download_btn: "دانلود برنامه فروش با بارکد",
 
         // ===== صفحه مغایرت بانکی (banking) =====
@@ -145,7 +145,7 @@ const langData = {
         banking_stat1_label: "آخرین ویرایش",
         banking_stat2_label: "تعداد دانلود نسخه قبلی",
         banking_hero_badge: "جدیدترین نسخه با امکانات پیشرفته",
-        banking_features_title: "✨ ویژگی‌های برنامه",
+        banking_features_title: "ویژگی‌های برنامه",
         banking_features_desc: "برنامه مغایرت بانکی با اکسل، ابزاری قدرتمند برای تطابق سریع و دقیق صورت‌حساب‌های بانکی با دفاتر حسابداری شماست. با استفاده از این برنامه، مغایرت‌های بانکی را در کمترین زمان شناسایی و رفع کنید.",
         banking_feature1_title: "کنترل بر اساس شماره و مبلغ",
         banking_feature1_desc: "امکان تطابق تراکنش‌ها بر اساس شماره سند و مبلغ برای دقت بالا",
@@ -159,7 +159,7 @@ const langData = {
         banking_feature5_desc: "تهیه گزارشات کامل از مغایرت‌های بانکی به صورت دقیق و جامع",
         banking_feature6_title: "خروجی PDF و چاپ",
         banking_feature6_desc: "امکان خروجی گرفتن از گزارشات به صورت PDF و چاپ مستقیم",
-        banking_gallery_title: "🖼️ تصاویر برنامه",
+        banking_gallery_title: "تصاویر برنامه",
         banking_download_btn: "دانلود برنامه مغایرت بانکی با اکسل"
     },
     en: {
@@ -187,10 +187,10 @@ const langData = {
 
         gallery_title: "App Screenshots",
 
-        video_title: "🎥 Introduction Video",
+        video_title: "Introduction Video",
         video_btn: "More Tutorials",
 
-        download_title: "📲 Download Now",
+        download_title: "Download Now",
         download_ios: "iPhone Version",
         download_ios_sub: "(Coming Soon)",
         download_android: "Android Version",
@@ -205,7 +205,7 @@ const langData = {
         excel_banking: "Bank Reconciliation with Excel",
         excel_btn: "Details",
 
-        contact_title: "📞 Contact Us",
+        contact_title: "Contact Us",
         contact_phone: "Phone Number",
         contact_email: "Email Address",
         contact_address: "Address",
@@ -226,7 +226,7 @@ const langData = {
         accounting_hero_title: "Accounting with <span>Excel</span>",
         accounting_hero_sub: "The cheapest and best accounting software with Excel",
         accounting_hero_users: "With over <strong>580</strong> active users since 2018 across Iran",
-        accounting_features_title: "✨ Features",
+        accounting_features_title: "Features",
         accounting_features_desc: "Excel accounting software covers all your accounting needs in the simplest way possible",
         accounting_feature1_title: "Define accounts as you like",
         accounting_feature1_desc: "Define and edit financial accounts based on your business needs",
@@ -246,7 +246,7 @@ const langData = {
         accounting_feature8_desc: "Select the desired calendar for registration and financial reporting",
         accounting_feature9_title: "Account card with PDF output",
         accounting_feature9_desc: "Get account cards as PDF file for each financial period",
-        accounting_gallery_title: "🖼️ App Screenshots",
+        accounting_gallery_title: "App Screenshots",
         accounting_download_btn: "Download Accounting with Excel",
 
         // ===== Warehouse (storage) page =====
@@ -254,7 +254,7 @@ const langData = {
         storage_hero_title: "Warehouse Purchase and Sales with <span>Excel</span>",
         storage_hero_sub: "The best warehouse inventory and sales software with Excel and FIFO profit reporting<br>with over <strong>580</strong> active users across Iran",
         storage_hero_badge: "Accurate profit calculation in any desired time period",
-        storage_features_title: "✨ Features",
+        storage_features_title: "Features",
         storage_features_desc: "For the first time, the best warehouse purchase and sales software with Excel and FIFO profit reporting has been developed by the Mangro software team. By correctly recording information, an accurate profit report using the FIFO method will be generated for each product in any desired time period",
         storage_feature1_title: "FIFO Profit Reporting",
         storage_feature1_desc: "Accurate profit calculation using FIFO method in any desired time period for each product",
@@ -268,7 +268,7 @@ const langData = {
         storage_feature5_desc: "Print all financial and warehouse reports as PDF output",
         storage_feature6_title: "Advanced reporting",
         storage_feature6_desc: "Detailed reports on warehouse status, purchases, sales and product profitability",
-        storage_gallery_title: "🖼️ App Screenshots",
+        storage_gallery_title: "App Screenshots",
         storage_download_btn: "Download Warehouse Purchase and Sales Program",
 
         // ===== Barcode page =====
@@ -276,7 +276,7 @@ const langData = {
         barcode_hero_title: "Barcode Product <span>Sales</span>",
         barcode_hero_sub: "The best barcode product sales software with Excel<br>No need to buy expensive and complex programs",
         barcode_hero_badge: "Available in simple and advanced versions",
-        barcode_features_title: "✨ Features",
+        barcode_features_title: "Features",
         barcode_features_desc: "Barcode product sales software with Excel is a simple and efficient solution for managing product sales using barcodes. This program is available in two versions, simple and advanced, to suit the needs of users",
         barcode_feature1_title: "Read product barcodes",
         barcode_feature1_desc: "Read product barcodes using a barcode scanner and automatic data entry",
@@ -290,14 +290,14 @@ const langData = {
         barcode_feature5_desc: "Generate daily, weekly and monthly sales reports by product",
         barcode_feature6_title: "Print product barcodes",
         barcode_feature6_desc: "Design and print barcodes for new products professionally",
-        barcode_versions_title: "📦 Software Versions",
+        barcode_versions_title: "Software Versions",
         barcode_version_simple_title: "Simple Version",
         barcode_version_simple_desc: "Suitable for small stores and users who need basic barcode sales features",
         barcode_version_simple_badge: "Good for start",
         barcode_version_advanced_title: "Advanced Version",
         barcode_version_advanced_desc: "Suitable for large stores with full reporting, inventory management and barcode printing features",
         barcode_version_advanced_badge: "Full features",
-        barcode_gallery_title: "🖼️ App Screenshots",
+        barcode_gallery_title: "App Screenshots",
         barcode_download_btn: "Download Barcode Sales Program",
 
         // ===== Bank Reconciliation (banking) page =====
@@ -307,7 +307,7 @@ const langData = {
         banking_stat1_label: "Last Update",
         banking_stat2_label: "Previous version downloads",
         banking_hero_badge: "Latest version with advanced features",
-        banking_features_title: "✨ Features",
+        banking_features_title: "Features",
         banking_features_desc: "Bank reconciliation software with Excel is a powerful tool for quickly and accurately matching bank statements with your accounting books. Identify and resolve bank discrepancies in no time",
         banking_feature1_title: "Control by number and amount",
         banking_feature1_desc: "Match transactions based on document number and amount for high accuracy",
@@ -321,7 +321,7 @@ const langData = {
         banking_feature5_desc: "Generate comprehensive reports on bank discrepancies accurately and thoroughly",
         banking_feature6_title: "PDF export and printing",
         banking_feature6_desc: "Export reports as PDF and print directly",
-        banking_gallery_title: "🖼️ App Screenshots",
+        banking_gallery_title: "App Screenshots",
         banking_download_btn: "Download Bank Reconciliation with Excel"
     },
     ar: {
@@ -349,10 +349,10 @@ const langData = {
 
         gallery_title: "صور البرنامج",
 
-        video_title: "🎥 فيديو تعريفي",
+        video_title: "فيديو تعريفي",
         video_btn: "المزيد من الدروس",
 
-        download_title: "📲 حمّل الآن!",
+        download_title: "حمّل الآن!",
         download_ios: "نسخة آيفون",
         download_ios_sub: "(قريباً)",
         download_android: "نسخة أندرويد",
@@ -367,7 +367,7 @@ const langData = {
         excel_banking: "مطابقة البنك بإكسل",
         excel_btn: "تفاصيل",
 
-        contact_title: "📞 اتصل بنا",
+        contact_title: "اتصل بنا",
         contact_phone: "رقم الهاتف",
         contact_email: "البريد الإلكتروني",
         contact_address: "العنوان",
@@ -388,7 +388,7 @@ const langData = {
         accounting_hero_title: "المحاسبة بإكسل",
         accounting_hero_sub: "أرخص وأفضل برنامج محاسبة بإكسل",
         accounting_hero_users: "مع أكثر من <strong>580</strong> مستخدم نشط حتى عام 2018 في جميع أنحاء إيران",
-        accounting_features_title: "✨ ميزات البرنامج",
+        accounting_features_title: "ميزات البرنامج",
         accounting_features_desc: "برنامج المحاسبة بإكسل يغطي جميع احتياجاتك المحاسبية بأبسط طريقة ممكنة.",
         accounting_feature1_title: "تعريف الحسابات كما تشاء",
         accounting_feature1_desc: "إمكانية تعريف وتعديل الحسابات المالية بناءً على احتياجات عملك",
@@ -408,7 +408,7 @@ const langData = {
         accounting_feature8_desc: "اختيار التقويم المطلوب للتسجيل والتقارير المالية",
         accounting_feature9_title: "بطاقة الحساب مع إخراج PDF",
         accounting_feature9_desc: "الحصول على بطاقات الحساب كملف PDF لكل فترة مالية",
-        accounting_gallery_title: "🖼️ صور البرنامج",
+        accounting_gallery_title: "صور البرنامج",
         accounting_download_btn: "تحميل برنامج المحاسبة بإكسل",
 
         // ===== صفحة المستودع (storage) =====
@@ -416,7 +416,7 @@ const langData = {
         storage_hero_title: "المستودع (الشراء والبيع) بإكسل",
         storage_hero_sub: "أفضل برنامج لإدارة مخزون المستودع والبيع بإكسل مع إمكانية تقرير الأرباح بطريقة FIFO<br>مع أكثر من <strong>580</strong> مستخدم نشط في جميع أنحاء إيران",
         storage_hero_badge: "حساب دقيق للأرباح في فترات زمنية مخصصة",
-        storage_features_title: "✨ ميزات البرنامج",
+        storage_features_title: "ميزات البرنامج",
         storage_features_desc: "لأول مرة، تم إعداد أفضل برنامج لإدارة مخزون المستودع والبيع بإكسل مع إمكانية تقرير الأرباح بطريقة FIFO بواسطة فريق برمجيات مانغرو. من خلال تسجيل المعلومات بشكل صحيح، سيتم إعداد تقرير دقيق للأرباح باستخدام طريقة FIFO لكل منتج في أي فترة زمنية مطلوبة.",
         storage_feature1_title: "تقرير الأرباح بطريقة FIFO",
         storage_feature1_desc: "حساب دقيق للأرباح بطريقة FIFO في أي فترة زمنية لكل منتج",
@@ -430,7 +430,7 @@ const langData = {
         storage_feature5_desc: "إمكانية طباعة جميع التقارير المالية والمستودعات كملف PDF",
         storage_feature6_title: "تقارير متقدمة",
         storage_feature6_desc: "تقارير مفصلة عن حالة المستودع والمشتريات والمبيعات وربحية المنتجات",
-        storage_gallery_title: "🖼️ صور البرنامج",
+        storage_gallery_title: "صور البرنامج",
         storage_download_btn: "تحميل برنامج المستودع (الشراء والبيع)",
 
         // ===== صفحة الباركود (barcode) =====
@@ -438,7 +438,7 @@ const langData = {
         barcode_hero_title: "مبيعات المنتجات بالباركود",
         barcode_hero_sub: "أفضل برنامج لبيع المنتجات بالباركود بإكسل<br>لا حاجة لشراء برامج باهظة الثمن ومعقدة.",
         barcode_hero_badge: "متوفر في نسختين بسيطة ومتقدمة",
-        barcode_features_title: "✨ ميزات البرنامج",
+        barcode_features_title: "ميزات البرنامج",
         barcode_features_desc: "برنامج مبيعات المنتجات بالباركود بإكسل هو حل بسيط وفعال لإدارة مبيعات المنتجات باستخدام الباركود. تم إعداد هذا البرنامج في نسختين بسيطة ومتقدمة لتتناسب مع احتياجات المستخدمين.",
         barcode_feature1_title: "قراءة باركود المنتجات",
         barcode_feature1_desc: "قراءة باركود المنتجات باستخدام ماسح الباركود وإدخال البيانات تلقائياً",
@@ -452,14 +452,14 @@ const langData = {
         barcode_feature5_desc: "تقارير مبيعات يومية وأسبوعية وشهرية لكل منتج",
         barcode_feature6_title: "طباعة باركود المنتجات",
         barcode_feature6_desc: "تصميم وطباعة باركود للمنتجات الجديدة بشكل احترافي",
-        barcode_versions_title: "📦 نسخ البرنامج",
+        barcode_versions_title: "نسخ البرنامج",
         barcode_version_simple_title: "النسخة البسيطة",
         barcode_version_simple_desc: "مناسبة للمتاجر الصغيرة والمستخدمين الذين يحتاجون إلى ميزات أساسية لبيع الباركود.",
         barcode_version_simple_badge: "مناسبة للبدء",
         barcode_version_advanced_title: "النسخة المتقدمة",
         barcode_version_advanced_desc: "مناسبة للمتاجر الكبيرة مع ميزات كاملة للتقارير وإدارة المخزون وطباعة الباركود.",
         barcode_version_advanced_badge: "ميزات كاملة",
-        barcode_gallery_title: "🖼️ صور البرنامج",
+        barcode_gallery_title: "صور البرنامج",
         barcode_download_btn: "تحميل برنامج الباركود",
 
         // ===== صفحة مطابقة البنك (banking) =====
@@ -469,7 +469,7 @@ const langData = {
         banking_stat1_label: "آخر تحديث",
         banking_stat2_label: "عدد تحميلات النسخة السابقة",
         banking_hero_badge: "أحدث إصدار بميزات متقدمة",
-        banking_features_title: "✨ ميزات البرنامج",
+        banking_features_title: "ميزات البرنامج",
         banking_features_desc: "برنامج مطابقة البنك بإكسل هو أداة قوية لمطابقة كشوفات البنك مع دفاتر المحاسبة الخاصة بك بسرعة ودقة. حدد وأصلح التناقضات البنكية في أقل وقت.",
         banking_feature1_title: "التحكم بالرقم والمبلغ",
         banking_feature1_desc: "مطابقة المعاملات بناءً على رقم المستند والمبلغ لدقة عالية",
@@ -483,7 +483,7 @@ const langData = {
         banking_feature5_desc: "إنشاء تقارير شاملة عن التناقضات البنكية بدقة وشمولية",
         banking_feature6_title: "تصدير PDF وطباعة",
         banking_feature6_desc: "تصدير التقارير بصيغة PDF والطباعة المباشرة",
-        banking_gallery_title: "🖼️ صور البرنامج",
+        banking_gallery_title: "صور البرنامج",
         banking_download_btn: "تحميل برنامج مطابقة البنك بإكسل"
     }
 };
