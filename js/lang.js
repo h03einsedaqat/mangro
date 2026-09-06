@@ -17,7 +17,8 @@
       excel_sub: "مجموعه نرم‌افزارهای حسابداری، انبار و فروش مانگرو بر پایه اکسل",
       hero_t1: "امن و مطمئن",
       hero_t2: "پشتیبانی کامل",
-      hero_t3: "به‌روزرسانی رایگان"
+      hero_t3: "به‌روزرسانی رایگان",
+      video_caption: "معرفی کوتاه اپلیکیشن مانگرو"
     },
     en: {
       features_kicker: "Mangro Features",
@@ -31,7 +32,8 @@
       excel_sub: "Mangro accounting, warehouse & sales software built on Excel",
       hero_t1: "Safe & Secure",
       hero_t2: "Full Support",
-      hero_t3: "Free Updates"
+      hero_t3: "Free Updates",
+      video_caption: "A quick tour of the Mangro app"
     },
     ar: {
       features_kicker: "مميزات مانجرو",
@@ -45,7 +47,8 @@
       excel_sub: "برمجيات المحاسبة والمخازن والمبيعات من مانجرو المبنية على إكسل",
       hero_t1: "آمن وموثوق",
       hero_t2: "دعم كامل",
-      hero_t3: "تحديثات مجانية"
+      hero_t3: "تحديثات مجانية",
+      video_caption: "جولة سريعة في تطبيق مانجرو"
     }
   };
   try {
@@ -224,3 +227,58 @@ if (typeof langData !== "undefined") {
 } else {
     console.warn("فایل language.js بارگذاری نشده است.");
 }
+
+// --- پس از رندر شدن محتوای داده‌محور (cms.js) زبان جاری دوباره اعمال شود
+//     تا با برگشت از پنل مدیریت، زبان انگلیسی/عربی به فارسی برنگردد. ---
+(function () {
+  function reapply() {
+    try {
+      var lang = (window.getCurrentLanguage && window.getCurrentLanguage()) || localStorage.getItem("lang") || "fa";
+      if (lang !== "fa" && typeof window.updateTexts === "function") {
+        window.updateTexts(lang);
+      }
+    } catch (e) {}
+  }
+  window.addEventListener("mangro:content-ready", reapply);
+  window.addEventListener("pageshow", reapply);
+  document.addEventListener("visibilitychange", function () {
+    if (!document.hidden) reapply();
+  });
+})();
+
+
+// --- پاک‌سازی خودکار ایموجی از تیترها (حتی اگر نسخه‌ی کش‌شده یا
+//     محتوای ذخیره‌شده در پنل هنوز ایموجی داشته باشد) ---
+(function () {
+  var EMOJI = /[\u2190-\u21FF\u2300-\u27BF\u2B00-\u2BFF\uFE0F\u200D]|[\uD83C-\uDBFF][\uDC00-\uDFFF]/g;
+  function clean(el) {
+    if (!el) return;
+    var before = el.innerHTML;
+    var after = before.replace(EMOJI, "").replace(/^\s+|\s+$/g, "").replace(/\s{2,}/g, " ");
+    if (after !== before) el.innerHTML = after;
+  }
+  function stripTitles() {
+    document.querySelectorAll(
+      ".section-title-grad, .section-head h1, .section-head h2, .section-head h3, .section-title, .features-section .section-title"
+    ).forEach(clean);
+  }
+  window.MangroStripTitleEmoji = stripTitles;
+
+  // بعد از هر تغییر زبان
+  if (typeof window.updateTexts === "function") {
+    var orig = window.updateTexts;
+    window.updateTexts = function (lang) {
+      orig(lang);
+      stripTitles();
+    };
+  }
+  window.addEventListener("mangro:content-ready", stripTitles);
+  window.addEventListener("pageshow", stripTitles);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", stripTitles);
+  } else {
+    stripTitles();
+  }
+  setTimeout(stripTitles, 300);
+  setTimeout(stripTitles, 1200);
+})();

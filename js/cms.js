@@ -103,7 +103,8 @@
           var src = /^(data:|https?:|\/)/i.test(raw) ? raw : (base || "") + raw;
           return (
             '<div class="swiper-slide" data-image="' + src + '">' +
-            '<img src="' + src + '" alt="' + ((img.alt || "گالری مانگرو") + " " + (i + 1)) + '" loading="lazy" decoding="async" />' +
+            '<img src="' + src + '" alt="' + ((img.alt || "گالری مانگرو") + " " + (i + 1)) + '" ' +
+            (i < 2 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"') + ' decoding="async" />' +
             "</div>"
           );
         })

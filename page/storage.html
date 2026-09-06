@@ -8,8 +8,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../style/swiper.css" />
-    <link rel="stylesheet" href="../style/style.css" />
+    <link rel="stylesheet" href="../style/swiper.css?v=9" />
+    <link rel="stylesheet" href="../style/style.css?v=9" />
 
     <style>
       /* ===== استایل‌های اختصاصی صفحه انبار خرید و فروش ===== */
@@ -297,25 +297,7 @@
         border-radius: 4px;
       }
 
-      .video-wrapper {
-        max-width: 800px;
-        margin: 0 auto;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        background: #1a1a1a;
-        aspect-ratio: 16 / 9;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
 
-      .video-wrapper video {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
 
       .video-btn-wrapper {
         text-align: center;
@@ -554,9 +536,6 @@
           height: 8px;
         }
 
-        .video-wrapper {
-          border-radius: 14px;
-        }
         .btn-video {
           padding: 10px 25px;
           font-size: 15px;
@@ -681,7 +660,7 @@
     <!-- ========== بخش ویژگی‌ها ========== -->
     <section class="features-section">
       <div class="container">
-        <h2 class="section-title" data-lang="storage_features_title">✨ ویژگی‌های برنامه</h2>
+        <h2 class="section-title" data-lang="storage_features_title">ویژگی‌های برنامه</h2>
         <p class="section-desc" data-lang="storage_features_desc">
           برای اولین بار بهترین برنامه انبار خرید و فروش کالا با اکسل و امکان
           گزارش‌گیری سود به روش فایفو توسط گروه نرم‌افزاری مانگرو تهیه گردیده
@@ -732,11 +711,11 @@
     <!-- ========== گالری اسلایدر (Carousel) ========== -->
     <section class="gallery-carousel">
       <div class="container">
-        <h2 class="gallery-title" data-lang="storage_gallery_title">🖼️ تصاویر برنامه</h2>
+        <h2 class="gallery-title" data-lang="storage_gallery_title">تصاویر برنامه</h2>
         <div class="swiper mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" data-image="../img/mangroapp.jpg">
-              <img src="../img/mangroapp.jpg" alt="تصویر برنامه انبار ۱" />
+            <div class="swiper-slide" data-image="../img/mangroapp.webp">
+              <img src="../img/mangroapp.webp" alt="تصویر برنامه انبار ۱" />
             </div>
             <div class="swiper-slide" data-image="../img/slide1.webp">
               <img src="../img/slide1.webp" alt="تصویر برنامه انبار ۲" />
@@ -758,12 +737,23 @@
     <!-- ========== بخش ویدیو ========== -->
     <section class="video-section">
       <div class="container">
-        <h2 class="video-title" data-lang="video_title">🎥 ویدیوی معرفی نرم‌افزار</h2>
-        <div class="video-wrapper">
-          <video controls poster="../img/video_thumb.png">
-            <source src="../video/mangroveapp.mp4" type="video/mp4" />
-            مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-          </video>
+        <h2 class="video-title" data-lang="video_title">ویدیوی معرفی نرم‌افزار</h2>
+        <div class="video-stage">
+          <div class="video-wrapper">
+            <video preload="metadata" poster="../img/video_thumb.webp" playsinline>
+              <source src="../video/mangroveapp.mp4" type="video/mp4" />
+              مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+            </video>
+            <button class="video-play" aria-label="پخش ویدیو">
+              <span class="ring"></span>
+              <span class="ring ring-2"></span>
+              <i class="fas fa-play"></i>
+            </button>
+            <div class="video-caption">
+              <span class="live-dot"></span>
+              <span data-lang="video_caption">معرفی کوتاه اپلیکیشن مانگرو</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -803,9 +793,10 @@
     </footer>
 
     <!-- ========== اسکریپت‌ها ========== -->
-    <script src="../js/swiper.js"></script>
-    <script src="../js/language.js"></script>
-    <script src="../js/lang.js"></script>
+    <script src="../js/swiper.js?v=9"></script>
+    <script src="../js/language.js?v=9"></script>
+    <script src="../js/video-player.js?v=9"></script>
+    <script src="../js/lang.js?v=9"></script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // ===== راه‌اندازی Swiper =====

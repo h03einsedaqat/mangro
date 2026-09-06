@@ -10,8 +10,10 @@
     />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="./style/swiper.css" />
-    <link rel="stylesheet" href="./style/style.css" />
+    <link rel="stylesheet" href="./style/swiper.css?v=9" />
+    <link rel="stylesheet" href="./style/style.css?v=9" />
+    <link rel="preload" as="image" href="./img/showcase.webp" fetchpriority="high" />
+    <link rel="preload" as="image" href="./img/slide1.webp" />
     <link rel="icon" type="image/webp" href="./img/logo.webp" />
   </head>
   <body>
@@ -67,8 +69,17 @@
               <div class="side-btn-bottom"></div>
               <div class="notch"><span class="camera"></span><span class="speaker"></span></div>
               <div class="screen">
-                <img src="./img/showcase.jpg" alt="نمایش برنامه حسابداری مانگرو" fetchpriority="high" data-cms-attr="src:home.heroScreen" />
+                <div class="status-bar">
+                  <span class="sb-time">9:41</span>
+                  <span class="sb-icons">
+                    <span class="sb-bars"><i></i><i></i><i></i><i></i></span>
+                    <i class="fas fa-wifi"></i>
+                    <span class="sb-batt"></span>
+                  </span>
+                </div>
+                <img src="./img/showcase.webp" alt="نمایش برنامه حسابداری مانگرو" fetchpriority="high" data-cms-attr="src:home.heroScreen" />
               </div>
+              <div class="home-bar"></div>
             </div>
           </div>
         </div>
@@ -83,8 +94,17 @@
               <div class="side-btn-bottom"></div>
               <div class="notch"><span class="camera"></span><span class="speaker"></span></div>
               <div class="screen">
-                <img src="./img/showcase.jpg" alt="نمایش برنامه حسابداری مانگرو" fetchpriority="high" data-cms-attr="src:home.heroScreen" />
+                <div class="status-bar">
+                  <span class="sb-time">9:41</span>
+                  <span class="sb-icons">
+                    <span class="sb-bars"><i></i><i></i><i></i><i></i></span>
+                    <i class="fas fa-wifi"></i>
+                    <span class="sb-batt"></span>
+                  </span>
+                </div>
+                <img src="./img/showcase.webp" alt="نمایش برنامه حسابداری مانگرو" fetchpriority="high" data-cms-attr="src:home.heroScreen" />
               </div>
+              <div class="home-bar"></div>
             </div>
           </div>
           <div class="hero-text">
@@ -104,7 +124,6 @@
       <section id="features" class="features section">
         <div class="container">
           <div class="section-head">
-            <span class="kicker"><i class="fas fa-wand-magic-sparkles"></i> <span data-lang="features_kicker">امکانات مانگرو</span></span>
             <h2 class="section-title-grad" data-lang="features_title" data-cms="home.featuresTitle">چرا مانگرو؟</h2>
           </div>
           <div class="features-grid">
@@ -136,7 +155,6 @@
       <section id="gallery-carousel" class="gallery-carousel section">
         <div class="container">
           <div class="section-head">
-            <span class="kicker"><i class="fas fa-images"></i> <span data-lang="gallery_kicker">نمایش برنامه</span></span>
             <h2 class="section-title-grad" data-lang="gallery_title" data-cms="home.galleryTitle">تصاویر برنامه</h2>
           </div>
           <div class="gallery-card">
@@ -154,15 +172,26 @@
       <section id="video-section" class="video-section section">
         <div class="container">
           <div class="section-head">
-            <span class="kicker"><i class="fas fa-circle-play"></i> <span data-lang="video_kicker">آموزش</span></span>
             <h2 class="section-title-grad" data-lang="video_title" data-cms="home.videoTitle">ویدیوی معرفی نرم‌افزار</h2>
           </div>
-          <div class="video-wrapper">
-            <video controls preload="none" poster="./img/video_thumb.png">
-              <source src="./video/mangroveapp.mp4" type="video/mp4" />
-              مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-            </video>
+          <div class="video-stage">
+            <div class="video-wrapper" id="introVideoWrap">
+              <video id="introVideo" preload="metadata" poster="./img/video_thumb.webp" playsinline>
+                <source src="./video/mangroveapp.mp4" type="video/mp4" />
+                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+              </video>
+              <button class="video-play" id="introPlayBtn" aria-label="پخش ویدیو">
+                <span class="ring"></span>
+                <span class="ring ring-2"></span>
+                <i class="fas fa-play"></i>
+              </button>
+              <div class="video-caption">
+                <span class="live-dot"></span>
+                <span data-lang="video_caption">معرفی کوتاه اپلیکیشن مانگرو</span>
+              </div>
+            </div>
           </div>
+
           <div class="video-btn-wrapper">
             <a href="./page/learning.html" class="btn btn-primary btn-soft">
               <i class="fas fa-graduation-cap"></i>
@@ -176,7 +205,6 @@
       <section id="download-section" class="download-section section">
         <div class="container">
           <div class="section-head">
-            <span class="kicker"><i class="fas fa-download"></i> <span data-lang="download_kicker">نصب اپلیکیشن</span></span>
             <h2 class="section-title-grad" data-lang="download_title" data-cms="home.downloadTitle">همین الان دانلود کن!</h2>
           </div>
           <div class="download-grid">
@@ -204,7 +232,6 @@
       <section id="excel-section" class="excel-section section">
         <div class="container">
           <div class="section-head">
-            <span class="kicker"><i class="fas fa-file-excel"></i> <span data-lang="excel_kicker">نسخه‌های اکسل</span></span>
             <h2 class="section-title-grad" data-lang="excel_title" data-cms="home.excelTitle">نرم افزار اکسل</h2>
             <p class="section-sub" data-cms="home.excelSub" data-lang="excel_sub">مجموعه نرم‌افزارهای حسابداری، انبار و فروش مانگرو بر پایه اکسل</p>
           </div>
@@ -237,7 +264,6 @@
       <section id="contact-section" class="contact-section section">
         <div class="container">
           <div class="section-head">
-            <span class="kicker"><i class="fas fa-headset"></i> <span data-lang="contact_kicker">ارتباط با ما</span></span>
             <h2 class="section-title-grad" data-lang="contact_title" data-cms="home.contactTitle">تماس با ما</h2>
           </div>
           <div class="contact-wrapper">
@@ -309,10 +335,10 @@
       </div>
     </footer>
 
-    <script defer src="./js/swiper.js"></script>
-    <script defer src="./js/cms.js"></script>
-    <script defer src="./js/language.js"></script>
-    <script defer src="./js/lang.js"></script>
-    <script defer src="./js/app.js"></script>
+    <script defer src="./js/swiper.js?v=9"></script>
+    <script defer src="./js/cms.js?v=9"></script>
+    <script defer src="./js/language.js?v=9"></script>
+    <script defer src="./js/lang.js?v=9"></script>
+    <script defer src="./js/app.js?v=9"></script>
   </body>
 </html>
